@@ -10,7 +10,7 @@
         public int Seatsnum { get; set; }
         
         
-        public int AirplaneId { get; set; }
+        public Guid AirplaneId { get; set; }
         public Airplane Airplane { get; set; } // Navigation property
         public List<Crew> Crew { get; set; }
         public List<Ticket> Tickets { get; set;}
