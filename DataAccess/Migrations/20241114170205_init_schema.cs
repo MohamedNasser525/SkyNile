@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SkyNile.Migrations
+namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class init_schema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -91,15 +91,14 @@ namespace SkyNile.Migrations
                     DepartureLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArrivalLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Seatsnum = table.Column<int>(type: "int", nullable: false),
-                    AirplaneId = table.Column<int>(type: "int", nullable: false),
-                    AirplaneId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AirplaneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flights", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Flights_Airplanes_AirplaneId1",
-                        column: x => x.AirplaneId1,
+                        name: "FK_Flights_Airplanes_AirplaneId",
+                        column: x => x.AirplaneId,
                         principalTable: "Airplanes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -240,25 +239,23 @@ namespace SkyNile.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TicketCount = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PassengerId = table.Column<int>(type: "int", nullable: false),
-                    FlightId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    PassengerId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FlightId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TicketCount = table.Column<int>(type: "int", nullable: false),
+                    PassengerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FlightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_Flights_FlightId1",
-                        column: x => x.FlightId1,
+                        name: "FK_Tickets_Flights_FlightId",
+                        column: x => x.FlightId,
                         principalTable: "Flights",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Passengers_PassengerId1",
-                        column: x => x.PassengerId1,
+                        name: "FK_Tickets_Passengers_PassengerId",
+                        column: x => x.PassengerId,
                         principalTable: "Passengers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -309,19 +306,19 @@ namespace SkyNile.Migrations
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flights_AirplaneId1",
+                name: "IX_Flights_AirplaneId",
                 table: "Flights",
-                column: "AirplaneId1");
+                column: "AirplaneId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_FlightId1",
+                name: "IX_Tickets_FlightId",
                 table: "Tickets",
-                column: "FlightId1");
+                column: "FlightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_PassengerId1",
+                name: "IX_Tickets_PassengerId",
                 table: "Tickets",
-                column: "PassengerId1");
+                column: "PassengerId");
         }
 
         /// <inheritdoc />

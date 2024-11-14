@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Yza3bcGJm2w=",
+  "dgSpecHash": "wxz/KhVDTZQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+  "projectFilePath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\moham\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
