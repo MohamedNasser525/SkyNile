@@ -5,6 +5,10 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyNile", "SkyNile\SkyNile.csproj", "{CDB22C4C-56C8-43DD-BE89-19A1D25B4E6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{9ACFECEB-7CD6-4767-ABD1-C235FF8EA9FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{61DCA2BD-B907-4952-9DF8-2E309922ABC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{CDB22C4C-56C8-43DD-BE89-19A1D25B4E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDB22C4C-56C8-43DD-BE89-19A1D25B4E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDB22C4C-56C8-43DD-BE89-19A1D25B4E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACFECEB-7CD6-4767-ABD1-C235FF8EA9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACFECEB-7CD6-4767-ABD1-C235FF8EA9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACFECEB-7CD6-4767-ABD1-C235FF8EA9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACFECEB-7CD6-4767-ABD1-C235FF8EA9FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61DCA2BD-B907-4952-9DF8-2E309922ABC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61DCA2BD-B907-4952-9DF8-2E309922ABC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61DCA2BD-B907-4952-9DF8-2E309922ABC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61DCA2BD-B907-4952-9DF8-2E309922ABC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿namespace SkyNile.Models
+﻿namespace BusinessLogic.Models
 {
 
     public class Airplane
@@ -10,5 +10,5 @@
         public List<Flight> Flights { get; set; }
     }
 
-    
+
 }

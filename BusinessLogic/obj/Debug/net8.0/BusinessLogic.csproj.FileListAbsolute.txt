@@ -1,0 +1,15 @@
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\bin\Debug\net8.0\BusinessLogic.deps.json
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\bin\Debug\net8.0\BusinessLogic.runtimeconfig.json
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\bin\Debug\net8.0\BusinessLogic.dll
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\bin\Debug\net8.0\BusinessLogic.pdb
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.AssemblyInfo.cs
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.sourcelink.json
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.dll
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\refint\BusinessLogic.dll
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.pdb
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\BusinessLogic.genruntimeconfig.cache
+C:\Users\moham\Solutions\SkyNile\SkyNile\BusinessLogic\obj\Debug\net8.0\ref\BusinessLogic.dll

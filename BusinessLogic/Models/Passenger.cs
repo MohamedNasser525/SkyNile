@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace SkyNile.Models
+namespace BusinessLogic.Models
 {
     public class Passenger 
     {

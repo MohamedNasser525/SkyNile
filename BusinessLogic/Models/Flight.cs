@@ -1,4 +1,4 @@
-﻿namespace SkyNile.Models
+﻿namespace BusinessLogic.Models
 {
     public class Flight
     {

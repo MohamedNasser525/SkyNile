@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BusinessLogic.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace SkyNile.Models
+namespace DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext<Crew>
     {
