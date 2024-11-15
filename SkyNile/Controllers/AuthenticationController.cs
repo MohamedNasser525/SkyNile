@@ -25,7 +25,7 @@ namespace SkyNile.Controllers
         }
         [Route("/login")] 
         [HttpPost]
-        public async Task<IActionResult> login([FromQuery] Login model)
+        public async Task<IActionResult> login([FromForm] Login model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
