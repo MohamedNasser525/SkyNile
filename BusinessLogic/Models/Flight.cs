@@ -12,7 +12,7 @@
         
         public Guid AirplaneId { get; set; }
         public Airplane Airplane { get; set; } // Navigation property
-        public List<Crew> Crew { get; set; }
+        public List<User> User { get; set; }
         public List<Ticket> Tickets { get; set;}
     }
 
