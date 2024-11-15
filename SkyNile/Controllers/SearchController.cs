@@ -1,6 +1,7 @@
 using BusinessLogic.Models;
 using BusinessLogic.Utilities;
 using DataAccess.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SkyNile.DTO;
