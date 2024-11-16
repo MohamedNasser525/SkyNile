@@ -25,8 +25,7 @@ namespace SkyNile.Controllers
         public async Task<ActionResult> GetAvailableFlightsAsync([FromQuery] FlightDTO flightCriteriaDTO)
         {
             var expression = DynamicSearchHelper.BuildSearchExpression<Flight>(flightCriteriaDTO);
-            var results = await _db.Flights.Where(f => f.DepartureTime == flightCriteriaDTO.DepartureTime && 
-            f.ArrivalTime == flightCriteriaDTO.ArrivalTime).ToListAsync();
+            var results = await _db.Flights.Where(expression).ToListAsync();
             return Ok(results);
         }
     }

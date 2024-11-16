@@ -22,11 +22,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen((c =>
-{
-    c.MapType<DateTime>(() => new OpenApiSchema { Type = "string", Format = "date-time" });
-    c.MapType<DateTime?>(() => new OpenApiSchema { Type = "string", Format = "date-time" });
-}));
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 

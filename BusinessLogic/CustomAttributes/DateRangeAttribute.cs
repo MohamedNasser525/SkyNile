@@ -14,6 +14,9 @@ public class DateRangeAttribute : ValidationAttribute
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
+        if (value == null){
+            return ValidationResult.Success;
+        }
         if (value is DateTime date)
         {
             var now = DateTime.Now;
@@ -36,7 +39,7 @@ public class DateRangeAttribute : ValidationAttribute
 
             return ValidationResult.Success;
         }
-        return new ValidationResult("Invalid date format.");
+        return new ValidationResult("Invalid date format. ");
     }
 }
 
