@@ -20,6 +20,8 @@ namespace SkyNile.DTO
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Display(Name = "Passport Number")]
+        public string PassportNumber { get; set; }
     }
 
 }

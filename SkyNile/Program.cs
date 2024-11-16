@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SkyNile.HelperModel;
 using SkyNile.Services;
 using System.Text;
@@ -21,7 +22,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen((c =>
+{
+    c.MapType<DateTime>(() => new OpenApiSchema { Type = "string", Format = "date-time" });
+    c.MapType<DateTime?>(() => new OpenApiSchema { Type = "string", Format = "date-time" });
+}));
 builder.Services.AddControllers();
 
 

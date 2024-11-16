@@ -15,7 +15,7 @@ public static class DynamicSearchHelper
         {
             // Get value of the property in the DTO
             var value = property.GetValue(dto);
-            if (value == null || IsDefaultValue(value)) continue;
+            if (value == null || IsDefaultValue(value) || (value is string strValue && string.IsNullOrWhiteSpace(strValue)) ) continue;
 
             // Create a member expression for the target entity property
             var entityProperty = typeof(T).GetProperty(property.Name);
