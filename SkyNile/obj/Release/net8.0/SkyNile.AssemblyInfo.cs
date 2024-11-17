@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-SkyNile-477c98bd-d960-4f5b-b49e-3790609ae393")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkyNile")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06d7d3ba812bec0fb0de97b9a81c62bb5be24c52")]
 [assembly: System.Reflection.AssemblyProductAttribute("SkyNile")]

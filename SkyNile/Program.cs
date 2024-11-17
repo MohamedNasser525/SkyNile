@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SkyNile.HelperModel;
 using SkyNile.Services;
+using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,28 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Facemo",
+        Version = "v1",
+        Description = "Backend API for An airline company is a business that provides air transport services for passengers.",
+    });
+    options.EnableAnnotations();
+    options.AddSecurityDefinition("Bearer Token", new OpenApiSecurityScheme
+    {
+        Description = "Standard Authorization header using the Bearer scheme (JWT). Example: bearer {token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer Token"
+    });
+
+    // Apply security requirements globally
+    options.OperationFilter<SecurityRequirementsOperationFilter>(true, "Bearer Token");
+    options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+}); 
 builder.Services.AddControllers();
 
 
