@@ -14,6 +14,6 @@ namespace DataAccess.Data
         public DbSet<Airplane> Airplanes { get; set; }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-
+        
     }
 }

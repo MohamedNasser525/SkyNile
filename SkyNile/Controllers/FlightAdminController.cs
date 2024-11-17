@@ -7,5 +7,6 @@ namespace SkyNile.Controllers
     [ApiController]
     public class FlightAdminController : ControllerBase
     {
+        
     }
 }

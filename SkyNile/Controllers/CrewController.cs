@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using SkyNile.DTO;
 using Swashbuckle.AspNetCore.Annotations;
@@ -30,16 +31,19 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, "User ID is invalid")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "User doesn't have any upcoming flight trips")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "This API is for crew members only")]
-        public async Task<IActionResult> booking(Guid UserID)
+        public async Task<IActionResult> NextFlight([FromForm]string UserID)
         {
-            var crew = await _userManager.FindByIdAsync(UserID.ToString());
+            var crew = await _userManager.Users.Include(x => x.Flight).SingleOrDefaultAsync(x => x.Id == UserID);
             if (crew == null)
             {
                 return BadRequest("User ID is invalid");
             }
 
+            if (crew.Flight == null)
+            {
+                return NotFound("u haven't flight trip soon");
+            }
             List<Flight> flights = new List<Flight>();
-            int cnt = crew.Flight.Where(f => f.DepartureTime > DateTime.Now).Count();
             foreach (var f in crew.Flight)
             {
                 if (f.DepartureTime >= DateTime.Now)
@@ -48,11 +52,7 @@ namespace SkyNile.Controllers
                 }
             }
 
-            if (flights.Count > 0)
-            {
-                Console.WriteLine($"{cnt}, {flights.Count} flights");
-                return NotFound("u haven't flight trip soon");
-            }
+
 
             return Ok(flights.Select(x => new { x.DepartureTime, x.DepartureLocation, x.ArrivalTime, x.ArrivalLocation }).OrderBy(x => x.DepartureTime));
         }
