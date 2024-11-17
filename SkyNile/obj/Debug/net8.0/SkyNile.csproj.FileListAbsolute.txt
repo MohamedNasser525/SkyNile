@@ -512,3 +512,7 @@ C:\Users\monasser\source\MohamedNasser525\SkyNile\SkyNile\obj\Debug\net8.0\refin
 C:\Users\monasser\source\MohamedNasser525\SkyNile\SkyNile\obj\Debug\net8.0\SkyNile.pdb
 C:\Users\monasser\source\MohamedNasser525\SkyNile\SkyNile\obj\Debug\net8.0\SkyNile.genruntimeconfig.cache
 C:\Users\monasser\source\MohamedNasser525\SkyNile\SkyNile\obj\Debug\net8.0\ref\SkyNile.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Scrutor.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

@@ -28,5 +28,17 @@ namespace SkyNile.Controllers
             var results = await _db.Flights.Where(expression).ToListAsync();
             return Ok(results);
         }
+
+        [HttpGet("id:guid", Name = "GetFlightById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> GetFlightById(Guid id)
+        {
+            var targetFlight = await _db.Flights.FirstOrDefaultAsync(f => f.Id == id);
+            if (targetFlight == null)
+                return NotFound("No flight with such information provided");
+            return Ok(targetFlight);
+        }
     }
 }

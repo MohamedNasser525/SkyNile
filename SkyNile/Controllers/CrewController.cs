@@ -39,7 +39,7 @@ namespace SkyNile.Controllers
             }
 
             List<Flight> flights = new List<Flight>();
-
+            int cnt = crew.Flight.Where(f => f.DepartureTime > DateTime.Now).Count();
             foreach (var f in crew.Flight)
             {
                 if (f.DepartureTime >= DateTime.Now)
@@ -50,6 +50,7 @@ namespace SkyNile.Controllers
 
             if (flights.Count > 0)
             {
+                Console.WriteLine($"{cnt}, {flights.Count} flights");
                 return NotFound("u haven't flight trip soon");
             }
 
