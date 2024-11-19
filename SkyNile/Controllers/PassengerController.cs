@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyNile.DTO;
 using SkyNile.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SkyNile.Controllers
 {
@@ -22,9 +23,12 @@ namespace SkyNile.Controllers
         }
 
         [HttpPost("booking")]
+        [SwaggerOperation(Summary = "For passenger to book ticket")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Booking Done")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> booking(Guid UserID,Guid FlightID,int TicketCount)
         {
-            var User = _userManager.FindByIdAsync(UserID.ToString());
+            var User = await _userManager.FindByIdAsync(UserID.ToString());
             if (User == null)
             {
                 return BadRequest("user id invaild");
@@ -43,14 +47,45 @@ namespace SkyNile.Controllers
                 TicketCount = TicketCount,
                 TotalPrice = flight.Price * TicketCount
             };
-            // CrewController c = new (_userManager, _context);
-            // var tt =  c.NextFlight("63ea981d-d4be-417e-8b05-9dc37b6b0415");
-            // if (tt is object){
-            //     tt.
-            // }
+         
             _context.Tickets.Add(t);
             await _context.SaveChangesAsync();
-            return Ok(t);
+            return Ok("Booking Done");
+        }
+
+        [HttpPatch]
+        [SwaggerOperation(Summary = "For passenger to update ticket's seat count")]
+        [SwaggerResponse(StatusCodes.Status200OK)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> updatebooking(Guid UserID, Guid TicketID,int TicketCount)
+        {
+            var t = await _context.Tickets.Include(x=>x.Flight).SingleOrDefaultAsync(x=>x.Id==TicketID);
+            if (t == null)
+                return BadRequest("Ticket not found");
+            if (t.UserId != UserID)
+                return BadRequest("U can't cancel this ticket");
+            t.TicketCount = TicketCount;
+            t.TotalPrice = TicketCount* t.Flight.Price;
+
+            await _context.SaveChangesAsync();
+            return Ok("updating succeed");
+        }
+
+        [HttpDelete]
+        [SwaggerOperation(Summary = "cancel booking")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Booking Canceled")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> cancelbooking(Guid UserID, Guid TicketID)
+        {
+            var t=await _context.Tickets.FindAsync(TicketID);
+            if (t == null)
+                return BadRequest("Ticket not found");
+            if (t.UserId != UserID)
+                return BadRequest("U can't cancel this ticket");
+
+            _context.Tickets.Remove(t);
+            await _context.SaveChangesAsync();
+            return Ok("Booking Canceled");
         }
 
     }

@@ -44,8 +44,13 @@ builder.Services.AddSwaggerGen(options =>
     // Apply security requirements globally
     options.OperationFilter<SecurityRequirementsOperationFilter>(true, "Bearer Token");
     options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-}); 
+});
 builder.Services.AddControllers();
+//builder.Services.AddControllers()
+//    .AddJsonOptions(options =>
+//    {
+//        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+//    });
 
 
 builder.Services.AddAuthentication(options =>
