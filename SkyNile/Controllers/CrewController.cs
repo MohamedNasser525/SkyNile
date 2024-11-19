@@ -28,7 +28,7 @@ namespace SkyNile.Controllers
         [HttpGet("NextTrip")]
         [Authorize(Roles = "Crew")]
         [SwaggerOperation(Summary = "Returns all next trip for user in crew")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Request was successful", typeof(IEnumerable<FlightDTO>))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Request was successful", typeof(IEnumerable<FlightCrewResponseDTO>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "User ID is invalid")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "User doesn't have any upcoming flight trips")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "This API is for crew members only")]
