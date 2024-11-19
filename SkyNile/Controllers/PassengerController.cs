@@ -43,7 +43,11 @@ namespace SkyNile.Controllers
                 TicketCount = TicketCount,
                 TotalPrice = flight.Price * TicketCount
             };
-
+            // CrewController c = new (_userManager, _context);
+            // var tt =  c.NextFlight("63ea981d-d4be-417e-8b05-9dc37b6b0415");
+            // if (tt is object){
+            //     tt.
+            // }
             _context.Tickets.Add(t);
             await _context.SaveChangesAsync();
             return Ok(t);

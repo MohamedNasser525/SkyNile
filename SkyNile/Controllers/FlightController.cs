@@ -22,7 +22,7 @@ namespace SkyNile.Controllers
         [HttpGet(Name = "GetFlights")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> GetAvailableFlightsAsync([FromQuery] FlightDTO flightCriteriaDTO)
+        public async Task<ActionResult> GetAvailableFlightsAsync([FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
             var expression = DynamicSearchHelper.BuildSearchExpression<Flight>(flightCriteriaDTO);
             var results = await _db.Flights.Where(expression).ToListAsync();

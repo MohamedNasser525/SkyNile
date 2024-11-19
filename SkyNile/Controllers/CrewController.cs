@@ -14,7 +14,6 @@ namespace SkyNile.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Crew")]
     public class CrewController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -25,13 +24,15 @@ namespace SkyNile.Controllers
             _context = context;
         }
 
+
         [HttpGet("NextTrip")]
+        [Authorize(Roles = "Crew")]
         [SwaggerOperation(Summary = "Returns all next trip for user in crew")]
         [SwaggerResponse(StatusCodes.Status200OK, "Request was successful", typeof(IEnumerable<FlightDTO>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "User ID is invalid")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "User doesn't have any upcoming flight trips")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "This API is for crew members only")]
-        public async Task<IActionResult> NextFlight([FromForm]string UserID)
+        public async Task<IActionResult> NextFlight([FromForm] string UserID)
         {
             var crew = await _userManager.Users.Include(x => x.Flight).SingleOrDefaultAsync(x => x.Id == UserID);
             if (crew == null)
@@ -51,8 +52,6 @@ namespace SkyNile.Controllers
                     flights.Add(f);
                 }
             }
-
-
 
             return Ok(flights.Select(x => new { x.DepartureTime, x.DepartureLocation, x.ArrivalTime, x.ArrivalLocation }).OrderBy(x => x.DepartureTime));
         }
