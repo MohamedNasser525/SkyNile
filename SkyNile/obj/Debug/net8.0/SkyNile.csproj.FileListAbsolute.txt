@@ -516,3 +516,5 @@ c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Scrutor.dll
 c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
 c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
 c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Mapster.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Mapster.Core.dll

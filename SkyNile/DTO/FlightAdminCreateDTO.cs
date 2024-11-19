@@ -16,10 +16,12 @@ public class FlightAdminCreateDTO
     [Display(Name = "Arrival Location"), Required(ErrorMessage = "Arrival Location is required.")]
     public string ArrivalLocation { get; set; }
 
-    [Display(Name ="Available Seats number"), Required(ErrorMessage = "Seats number must be assigned")]
+    [Display(Name = "Available Seats number"), Required(ErrorMessage = "Seats number must be specified")]
     public int Seatsnum { get; set; }
 
-    [Display(Name ="Base flight price"), Required(ErrorMessage = "Base flight must be assigned")]
+    [Display(Name = "Base flight price"), Required(ErrorMessage = "Base flight must be specified")]
     public double Price { get; set; }
 
+    [Display(Name = "Airplane type Id"), Required(ErrorMessage = "Airplane type must be specified")]
+    public Guid AirplaneId { get; set; }
 }
