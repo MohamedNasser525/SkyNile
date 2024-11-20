@@ -1,5 +1,7 @@
 using BusinessLogic.Models;
 using DataAccess.Data;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using SkyNile.HelperModel;
 using SkyNile.Services;
 using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +50,7 @@ builder.Services.AddSwaggerGen(options =>
 }); 
 builder.Services.AddControllers();
 
-
+builder.Services.AddMapster();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -85,3 +88,18 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+public static class MapsterConfiguration
+{
+    public static IServiceCollection AddMapster(this IServiceCollection services)
+    {
+        var config = TypeAdapterConfig.GlobalSettings;
+        config.Scan(Assembly.GetExecutingAssembly()); // Scan for all mapping configurations
+
+        services.AddSingleton(config);
+        services.AddScoped<IMapper, ServiceMapper>();
+        
+        return services;
+    }
+}

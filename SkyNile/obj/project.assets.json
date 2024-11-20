@@ -118,6 +118,19 @@
           "lib/net7.0/Mapster.Core.dll": {}
         }
       },
+      "Mapster.DependencyInjection/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Mapster": "7.4.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Mapster.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/Mapster.DependencyInjection.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.1": {
         "type": "package",
         "dependencies": {
@@ -2206,6 +2219,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Mapster": "7.4.0",
+          "Mapster.DependencyInjection": "1.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "8.0.8",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.8",
@@ -2367,6 +2381,20 @@
         "lib/net7.0/Mapster.Core.dll",
         "mapster.core.1.2.1.nupkg.sha512",
         "mapster.core.nuspec"
+      ]
+    },
+    "Mapster.DependencyInjection/1.0.1": {
+      "sha512": "LfjnRIwx6WAo3ssq8PFeaHFaUz00BfSG9BhWgXsiDa3H5lDhG0lpMGDF6w2ZnooS4eHYmAv4f77VxmzpvgorNg==",
+      "type": "package",
+      "path": "mapster.dependencyinjection/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net6.0/Mapster.DependencyInjection.dll",
+        "lib/net7.0/Mapster.DependencyInjection.dll",
+        "mapster.dependencyinjection.1.0.1.nupkg.sha512",
+        "mapster.dependencyinjection.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.1": {
@@ -5704,6 +5732,7 @@
       "BusinessLogic >= 1.0.0",
       "DataAccess >= 1.0.0",
       "Mapster >= 7.4.0",
+      "Mapster.DependencyInjection >= 1.0.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.1",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 8.0.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.10",
@@ -5725,11 +5754,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "projectUniqueName": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
       "projectName": "SkyNile",
-      "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
       "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
+      "outputPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5747,11 +5776,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+            "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
             },
-            "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -5774,6 +5803,10 @@
           "Mapster": {
             "target": "Package",
             "version": "[7.4.0, )"
+          },
+          "Mapster.DependencyInjection": {
+            "target": "Package",
+            "version": "[1.0.1, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
