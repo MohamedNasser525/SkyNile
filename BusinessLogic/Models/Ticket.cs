@@ -8,8 +8,8 @@
         public Guid FlightId { get; set; }
         public double TotalPrice { get; set; }
 
-        public User User { get; set; }
-        public Flight Flight { get; set; }
+        public virtual User User { get; set; }
+        public virtual Flight Flight { get; set; }
     }
 
 }

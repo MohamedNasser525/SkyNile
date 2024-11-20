@@ -24,7 +24,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -47,8 +47,13 @@ builder.Services.AddSwaggerGen(options =>
     // Apply security requirements globally
     options.OperationFilter<SecurityRequirementsOperationFilter>(true, "Bearer Token");
     options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-}); 
+});
 builder.Services.AddControllers();
+//builder.Services.AddControllers()
+//    .AddJsonOptions(options =>
+//    {
+//        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+//    });
 
 builder.Services.AddMapster();
 builder.Services.AddAuthentication(options =>
