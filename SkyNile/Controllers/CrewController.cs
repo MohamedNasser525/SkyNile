@@ -23,8 +23,7 @@ namespace SkyNile.Controllers
             _userManager = userManager;
             _context = context;
         }
-
-
+        
         [HttpGet("NextTrip")]
         [Authorize(Roles = "Crew")]
         [SwaggerOperation(Summary = "Returns all next trip for user in crew")]
