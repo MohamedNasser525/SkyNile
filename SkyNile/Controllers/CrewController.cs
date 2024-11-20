@@ -32,9 +32,9 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, "User ID is invalid")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "User doesn't have any upcoming flight trips")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "This API is for crew members only")]
-        public async Task<IActionResult> NextFlight([FromForm] string UserID)
+        public async Task<IActionResult> NextFlight(string UserID)
         {
-            var crew = await _userManager.Users.Include(x => x.Flight).SingleOrDefaultAsync(x => x.Id == UserID);
+            var crew = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == UserID);
             if (crew == null)
             {
                 return BadRequest("User ID is invalid");

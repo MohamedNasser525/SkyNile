@@ -12,9 +12,9 @@
 
 
         public Guid AirplaneId { get; set; }
-        public Airplane Airplane { get; set; } // Navigation property
-        public List<User> User { get; set; }
-        public List<Ticket> Tickets { get; set;}
+        public virtual Airplane Airplane { get; set; } // Navigation property
+        public virtual List<User> User { get; set; }
+        public virtual List<Ticket> Tickets { get; set;}
     }
 
 }
