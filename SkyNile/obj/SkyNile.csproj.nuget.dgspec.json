@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj": {}
+    "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj": {}
   },
   "projects": {
     "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
@@ -121,14 +121,14 @@
         }
       }
     },
-    "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
+    "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj",
+        "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\obj\\",
+        "outputPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -182,6 +182,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -230,14 +234,14 @@
         }
       }
     },
-    "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj": {
+    "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+        "projectUniqueName": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
         "projectName": "SkyNile",
-        "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+        "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
+        "outputPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -258,8 +262,8 @@
               "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
                 "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
               },
-              "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj"
+              "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -308,6 +312,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",

@@ -39,7 +39,4 @@ public class FlightAdminUpdateDTO
 
     [Display(Name = "Base flight price"), Required(ErrorMessage = "Base flight must be specified")]
     public double Price { get; set; }
-
-    [Display(Name = "Airplane type Id"), Required(ErrorMessage = "Airplane type must be specified")]
-    public Guid AirplaneId { get; set; }
 }

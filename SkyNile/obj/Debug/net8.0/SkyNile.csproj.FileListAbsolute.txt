@@ -518,3 +518,6 @@ c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.As
 c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
 c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Mapster.dll
 c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Mapster.Core.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Castle.Core.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Mapster.DependencyInjection.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll

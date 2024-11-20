@@ -61,11 +61,12 @@ namespace SkyNile.Controllers
                 return NotFound();
             }
             flightDTO.Adapt(currentFlight);
+            Console.WriteLine("Hello");
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
-                [HttpDelete]
+        [HttpDelete]
         [SwaggerOperation(Summary = "Remove users crew on his Flight")]
         [SwaggerResponse(StatusCodes.Status200OK, "cancel crow on flight")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]

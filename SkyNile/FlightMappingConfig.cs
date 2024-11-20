@@ -10,7 +10,6 @@ public class FlightMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.ForType<FlightAdminUpdateDTO, Flight>()
-            .Map(dest => dest.AirplaneId, src => src.AirplaneId)
             .Map(dest => dest.DepartureTime, src => src.DepartureTime)
             .Map(dest => dest.Price, src => src.Price)
             .Map(dest => dest.ArrivalTime, src => src.ArrivalTime);
