@@ -18,6 +18,9 @@ namespace DataAccess.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -55,14 +58,14 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("ArrivalLocation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DepartureLocation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
@@ -76,6 +79,14 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AirplaneId");
+
+                    b.HasIndex("ArrivalLocation");
+
+                    b.HasIndex("ArrivalTime");
+
+                    b.HasIndex("DepartureLocation");
+
+                    b.HasIndex("DepartureTime");
 
                     b.ToTable("Flights");
                 });
@@ -350,7 +361,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("BusinessLogic.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Ticket")
                         .HasForeignKey("UserId1");
 
                     b.Navigation("Flight");
@@ -432,6 +443,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("BusinessLogic.Models.Flight", b =>
                 {
                     b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Models.User", b =>
+                {
+                    b.Navigation("Ticket");
                 });
 #pragma warning restore 612, 618
         }
