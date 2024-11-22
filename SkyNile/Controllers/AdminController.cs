@@ -35,6 +35,13 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> InsertFlight([FromBody] FlightAdminCreateDTO flightDTO)
         {
+            var airplane = await _context.Airplanes.FirstOrDefaultAsync(a => a.Id == flightDTO.AirplaneId);
+            if (airplane == null){
+                return BadRequest("There is no such airplane with that specified Id.");
+            }
+            if (airplane.Capacity < flightDTO.Seatsnum){
+                return BadRequest($"Choose available seats count <= {airplane.Capacity}");
+            }
             var flight = flightDTO.Adapt<Flight>();
             await _context.Flights.AddAsync(flight);
             await _context.SaveChangesAsync();

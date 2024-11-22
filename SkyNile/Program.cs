@@ -12,6 +12,7 @@ using SkyNile.Services;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
@@ -49,11 +50,11 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
 });
 builder.Services.AddControllers();
-//builder.Services.AddControllers()
-//    .AddJsonOptions(options =>
-//    {
-//        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-//    });
+builder.Services.AddControllers()
+   .AddJsonOptions(options =>
+   {
+       options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+   });
 
 builder.Services.AddMapster();
 builder.Services.AddAuthentication(options =>
