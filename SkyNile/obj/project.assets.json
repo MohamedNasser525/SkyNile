@@ -5880,19 +5880,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\moham\\.nuget\\packages\\": {}
+    "C:\\Users\\monasser\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
       "projectName": "SkyNile",
       "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
       "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "projectName": "SkyNile",
+      "projectPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "packagesPath": "C:\\Users\\monasser\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\SkyNile\\obj\\",
+>>>>>>> f5911102e66af1999d039fce107faf5f5da999ed
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\monasser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5900,18 +5913,22 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
               "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+=======
+            "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+>>>>>>> f5911102e66af1999d039fce107faf5f5da999ed
             },
-            "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -5920,11 +5937,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -6023,7 +6035,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

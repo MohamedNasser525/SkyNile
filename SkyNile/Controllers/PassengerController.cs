@@ -39,7 +39,10 @@ namespace SkyNile.Controllers
             {
                 return BadRequest("flight id invaild");
             }
-
+            if(flight.Seatsnum<=0)
+            {
+                return BadRequest("no ticket available");
+            }
             Ticket t = new Ticket() {
                 Id = Guid.NewGuid(),
                 UserId = UserID,
@@ -47,7 +50,7 @@ namespace SkyNile.Controllers
                 TicketCount = TicketCount,
                 TotalPrice = flight.Price * TicketCount
             };
-         
+            flight.Seatsnum -= 1;
             _context.Tickets.Add(t);
             await _context.SaveChangesAsync();
             return Ok("Booking Done");
@@ -82,7 +85,7 @@ namespace SkyNile.Controllers
                 return BadRequest("Ticket not found");
             if (t.UserId != UserID)
                 return BadRequest("U can't cancel this ticket");
-
+            t.Flight.Seatsnum += 1;
             _context.Tickets.Remove(t);
             await _context.SaveChangesAsync();
             return Ok("Booking Canceled");
