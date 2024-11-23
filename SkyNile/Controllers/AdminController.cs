@@ -36,10 +36,12 @@ namespace SkyNile.Controllers
         public async Task<ActionResult> InsertFlight([FromBody] FlightAdminCreateDTO flightDTO)
         {
             var airplane = await _context.Airplanes.FirstOrDefaultAsync(a => a.Id == flightDTO.AirplaneId);
-            if (airplane == null){
+            if (airplane == null)
+            {
                 return BadRequest("There is no such airplane with that specified Id.");
             }
-            if (airplane.Capacity < flightDTO.Seatsnum){
+            if (airplane.Capacity < flightDTO.Seatsnum)
+            {
                 return BadRequest($"Choose available seats count <= {airplane.Capacity}");
             }
             var flight = flightDTO.Adapt<Flight>();
@@ -72,6 +74,21 @@ namespace SkyNile.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // [HttpDelete("id:guid", Name = "DeleteFlight")]
+        // [SwaggerOperation(Summary = "Cancel flight")]
+        // [SwaggerResponse(StatusCodes.Status200OK, "Your flight is deleted successfully.")]
+        // [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
+        // [SwaggerResponse(StatusCodes.Status404NotFound, "The desired flight is not found.")]
+        // public async Task<IActionResult> DeleteFlight(Guid id){
+        //     var flightToDelete = await _context.Flights.FirstOrDefaultAsync(f => f.Id == id);
+        //     if (flightToDelete == null){
+        //         return NotFound();
+        //     }
+        //     _context.Flights.Remove(flightToDelete);
+        //     await _context.SaveChangesAsync();
+        //     return 
+        // }
 
         [HttpPost("{id:guid}", Name = "AssignCrewFlight")]
         [SwaggerOperation(Summary = "Assign Crew member to a current flight")]
