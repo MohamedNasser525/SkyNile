@@ -1269,12 +1269,6 @@
       "System.Text.Json/8.0.4": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0"
-        },
-        "runtime": {
-          "lib/net8.0/System.Text.Json.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.724.31311"
-          }
         }
       },
       "System.Threading.Channels/6.0.0": {},
@@ -1314,7 +1308,10 @@
           "System.IdentityModel.Tokens.Jwt": "8.2.0"
         },
         "runtime": {
-          "BusinessLogic.dll": {}
+          "BusinessLogic.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

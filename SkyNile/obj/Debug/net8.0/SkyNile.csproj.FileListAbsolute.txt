@@ -700,3 +700,6 @@ C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain S
 C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\SkyNile\SkyNile\obj\Debug\net8.0\SkyNile.csproj.CopyComplete
 C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\SkyNile\SkyNile\obj\Debug\net8.0\SkyNile.genruntimeconfig.cache
 C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\SkyNile\SkyNile\obj\Debug\net8.0\ref\SkyNile.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\MailKit.dll
+c:\Users\moham\Solutions\SkyNile\SkyNile\SkyNile\bin\Debug\net8.0\MimeKit.dll

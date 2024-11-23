@@ -84,6 +84,19 @@
           }
         }
       },
+      "BouncyCastle.Cryptography/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Castle.Core/5.1.1": {
         "type": "package",
         "dependencies": {
@@ -110,6 +123,23 @@
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
             "related": ".xml"
+          }
+        }
+      },
+      "MailKit/4.8.0": {
+        "type": "package",
+        "dependencies": {
+          "MimeKit": "4.8.0",
+          "System.Formats.Asn1": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/MailKit.dll": {
+            "related": ".dll.config;.pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/MailKit.dll": {
+            "related": ".dll.config;.pdb;.xml"
           }
         }
       },
@@ -1485,6 +1515,24 @@
           }
         }
       },
+      "MimeKit/4.8.0": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.4.0",
+          "System.Formats.Asn1": "8.0.1",
+          "System.Security.Cryptography.Pkcs": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/MimeKit.dll": {
+            "related": ".dll.config;.pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/MimeKit.dll": {
+            "related": ".dll.config;.pdb;.xml"
+          }
+        }
+      },
       "Mono.TextTemplating/2.2.1": {
         "type": "package",
         "dependencies": {
@@ -1846,7 +1894,7 @@
           }
         }
       },
-      "System.Formats.Asn1/8.0.0-rc.2.23479.6": {
+      "System.Formats.Asn1/8.0.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Formats.Asn1.dll": {
@@ -2057,10 +2105,10 @@
           }
         }
       },
-      "System.Security.Cryptography.Pkcs/8.0.0-rc.2.23479.6": {
+      "System.Security.Cryptography.Pkcs/8.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Formats.Asn1": "8.0.0-rc.2.23479.6"
+          "System.Formats.Asn1": "8.0.0"
         },
         "compile": {
           "lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
@@ -2397,6 +2445,26 @@
         "pkgicon.png"
       ]
     },
+    "BouncyCastle.Cryptography/2.4.0": {
+      "sha512": "SwXsAV3sMvAU/Nn31pbjhWurYSjJ+/giI/0n6tCrYoupEK34iIHCuk3STAd9fx8yudM85KkLSVdn951vTng/vQ==",
+      "type": "package",
+      "path": "bouncycastle.cryptography/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "bouncycastle.cryptography.2.4.0.nupkg.sha512",
+        "bouncycastle.cryptography.nuspec",
+        "lib/net461/BouncyCastle.Cryptography.dll",
+        "lib/net461/BouncyCastle.Cryptography.xml",
+        "lib/net6.0/BouncyCastle.Cryptography.dll",
+        "lib/net6.0/BouncyCastle.Cryptography.xml",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
+        "packageIcon.png"
+      ]
+    },
     "Castle.Core/5.1.1": {
       "sha512": "rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
       "type": "package",
@@ -2437,6 +2505,50 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "MailKit/4.8.0": {
+      "sha512": "zZ1UoM4FUnSFUJ9fTl5CEEaejR0DNP6+FDt1OfXnjg4igZntcir1tg/8Ufd6WY5vrpmvToAjluYqjVM24A+5lA==",
+      "type": "package",
+      "path": "mailkit/4.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "docs/ExchangeOAuth2.md",
+        "docs/FAQ.md",
+        "docs/GMailOAuth2.md",
+        "docs/README.md",
+        "icons/mailkit-50.png",
+        "lib/net462/MailKit.dll",
+        "lib/net462/MailKit.dll.config",
+        "lib/net462/MailKit.pdb",
+        "lib/net462/MailKit.xml",
+        "lib/net47/MailKit.dll",
+        "lib/net47/MailKit.dll.config",
+        "lib/net47/MailKit.pdb",
+        "lib/net47/MailKit.xml",
+        "lib/net48/MailKit.dll",
+        "lib/net48/MailKit.dll.config",
+        "lib/net48/MailKit.pdb",
+        "lib/net48/MailKit.xml",
+        "lib/net6.0/MailKit.dll",
+        "lib/net6.0/MailKit.dll.config",
+        "lib/net6.0/MailKit.pdb",
+        "lib/net6.0/MailKit.xml",
+        "lib/net8.0/MailKit.dll",
+        "lib/net8.0/MailKit.dll.config",
+        "lib/net8.0/MailKit.pdb",
+        "lib/net8.0/MailKit.xml",
+        "lib/netstandard2.0/MailKit.dll",
+        "lib/netstandard2.0/MailKit.dll.config",
+        "lib/netstandard2.0/MailKit.pdb",
+        "lib/netstandard2.0/MailKit.xml",
+        "lib/netstandard2.1/MailKit.dll",
+        "lib/netstandard2.1/MailKit.dll.config",
+        "lib/netstandard2.1/MailKit.pdb",
+        "lib/netstandard2.1/MailKit.xml",
+        "mailkit.4.8.0.nupkg.sha512",
+        "mailkit.nuspec"
       ]
     },
     "Mapster/7.4.0": {
@@ -4595,6 +4707,48 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "MimeKit/4.8.0": {
+      "sha512": "U24wp4LKED+sBRzyrWICE+3bSwptsTrPOcCIXbW5zfeThCNzQx5NCo8Wus+Rmi+EUkQrCwlI/3sVfejeq9tuxQ==",
+      "type": "package",
+      "path": "mimekit/4.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "docs/FAQ.md",
+        "docs/README.md",
+        "icons/mimekit-50.png",
+        "lib/net462/MimeKit.dll",
+        "lib/net462/MimeKit.dll.config",
+        "lib/net462/MimeKit.pdb",
+        "lib/net462/MimeKit.xml",
+        "lib/net47/MimeKit.dll",
+        "lib/net47/MimeKit.dll.config",
+        "lib/net47/MimeKit.pdb",
+        "lib/net47/MimeKit.xml",
+        "lib/net48/MimeKit.dll",
+        "lib/net48/MimeKit.dll.config",
+        "lib/net48/MimeKit.pdb",
+        "lib/net48/MimeKit.xml",
+        "lib/net6.0/MimeKit.dll",
+        "lib/net6.0/MimeKit.dll.config",
+        "lib/net6.0/MimeKit.pdb",
+        "lib/net6.0/MimeKit.xml",
+        "lib/net8.0/MimeKit.dll",
+        "lib/net8.0/MimeKit.dll.config",
+        "lib/net8.0/MimeKit.pdb",
+        "lib/net8.0/MimeKit.xml",
+        "lib/netstandard2.0/MimeKit.dll",
+        "lib/netstandard2.0/MimeKit.dll.config",
+        "lib/netstandard2.0/MimeKit.pdb",
+        "lib/netstandard2.0/MimeKit.xml",
+        "lib/netstandard2.1/MimeKit.dll",
+        "lib/netstandard2.1/MimeKit.dll.config",
+        "lib/netstandard2.1/MimeKit.pdb",
+        "lib/netstandard2.1/MimeKit.xml",
+        "mimekit.4.8.0.nupkg.sha512",
+        "mimekit.nuspec"
+      ]
+    },
     "Mono.TextTemplating/2.2.1": {
       "sha512": "KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "type": "package",
@@ -5073,10 +5227,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Formats.Asn1/8.0.0-rc.2.23479.6": {
-      "sha512": "A1p1/ATQf4KawXEDccim1SUrZBlEg/fEzQ9U8WnmY63xe3PIIxNRDa0sz+D7SOiMJvA/7Z3TzuTdpg4qQqJj2w==",
+    "System.Formats.Asn1/8.0.1": {
+      "sha512": "XqKba7Mm/koKSjKMfW82olQdmfbI5yqeoLV/tidRp7fbh5rmHAQ5raDI/7SU0swTzv+jgqtUGkzmFxuUg0it1A==",
       "type": "package",
-      "path": "system.formats.asn1/8.0.0-rc.2.23479.6",
+      "path": "system.formats.asn1/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5097,7 +5251,7 @@
         "lib/net8.0/System.Formats.Asn1.xml",
         "lib/netstandard2.0/System.Formats.Asn1.dll",
         "lib/netstandard2.0/System.Formats.Asn1.xml",
-        "system.formats.asn1.8.0.0-rc.2.23479.6.nupkg.sha512",
+        "system.formats.asn1.8.0.1.nupkg.sha512",
         "system.formats.asn1.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5478,10 +5632,10 @@
         "version.txt"
       ]
     },
-    "System.Security.Cryptography.Pkcs/8.0.0-rc.2.23479.6": {
-      "sha512": "2es7eO33NRs8q639HHhwF45WV1L/gPuR2c43gTRFD0uwIM/iFQr7VK13PQoYPPxh/8AczRvEPXGwjwXJ+KQ7yw==",
+    "System.Security.Cryptography.Pkcs/8.0.0": {
+      "sha512": "ULmp3xoOwNYjOYp4JZ2NK/6NdTgiN1GQXzVVN1njQ7LOZ0d0B9vyMnhyqbIi9Qw4JXj1JgCsitkTShboHRx7Eg==",
       "type": "package",
-      "path": "system.security.cryptography.pkcs/8.0.0-rc.2.23479.6",
+      "path": "system.security.cryptography.pkcs/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5510,7 +5664,7 @@
         "runtimes/win/lib/net7.0/System.Security.Cryptography.Pkcs.xml",
         "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll",
         "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.xml",
-        "system.security.cryptography.pkcs.8.0.0-rc.2.23479.6.nupkg.sha512",
+        "system.security.cryptography.pkcs.8.0.0.nupkg.sha512",
         "system.security.cryptography.pkcs.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5861,6 +6015,7 @@
     "net8.0": [
       "BusinessLogic >= 1.0.0",
       "DataAccess >= 1.0.0",
+      "MailKit >= 4.8.0",
       "Mapster >= 7.4.0",
       "Mapster.DependencyInjection >= 1.0.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.1",
@@ -5873,6 +6028,7 @@
       "Microsoft.Identity.Web >= 2.15.2",
       "Microsoft.Identity.Web.DownstreamApi >= 2.15.2",
       "Microsoft.Identity.Web.UI >= 2.15.2",
+      "MimeKit >= 4.8.0",
       "Swashbuckle.AspNetCore >= 6.9.0",
       "Swashbuckle.AspNetCore.Annotations >= 7.0.0",
       "Swashbuckle.AspNetCore.Filters >= 8.0.2",
@@ -5880,32 +6036,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\monasser\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\moham\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "projectUniqueName": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
       "projectName": "SkyNile",
-      "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
       "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\SkyNile\\SkyNile.csproj",
-      "projectName": "SkyNile",
-      "projectPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\SkyNile\\SkyNile.csproj",
-      "packagesPath": "C:\\Users\\monasser\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\SkyNile\\obj\\",
->>>>>>> f5911102e66af1999d039fce107faf5f5da999ed
+      "outputPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\monasser\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5913,22 +6056,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-<<<<<<< HEAD
-            "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
-=======
-            "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
->>>>>>> f5911102e66af1999d039fce107faf5f5da999ed
+            "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
             },
-            "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\monasser\\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\\Desktop\\SkyNile\\DataAccess\\DataAccess.csproj"
+            "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -5937,12 +6076,21 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "MailKit": {
+            "target": "Package",
+            "version": "[4.8.0, )"
+          },
           "Mapster": {
             "target": "Package",
             "version": "[7.4.0, )"
@@ -5999,6 +6147,10 @@
             "target": "Package",
             "version": "[2.15.2, )"
           },
+          "MimeKit": {
+            "target": "Package",
+            "version": "[4.8.0, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.9.0, )"
@@ -6035,7 +6187,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyNile - Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #003580;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .booking-details {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #666;
+        }
+        .footer {
+            background: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .important-notice {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SkyNile</h1>
+            <p>Booking Confirmation</p>
+        </div>
+        
+        <div class="content">
+            <h2>Thank you for choosing SkyNile!</h2>
+            <p>Dear {CustomerName},</p>
+            <p>Your flight booking has been confirmed. Below are your booking details:</p>
+            
+            <div class="booking-details">
+                <div class="detail-row">
+                    <span class="detail-label">Ticket Reference:</span>
+                    <span>{TicketId}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Flight Number:</span>
+                    <span>{FlightId}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">From:</span>
+                    <span>{DepartureLocation}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">To:</span>
+                    <span>{ArrivalLocation}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Departure Time:</span>
+                    <span>{DepartureTime}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Arrival Time:</span>
+                    <span>{ArrivalTime}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Passenger(s):</span>
+                    <span>{PassengerCount}</span>
+                </div>
+            </div>
+
+            <div class="important-notice">
+                <strong>Important:</strong>
+                <ul>
+                    <li>Please arrive at the airport at least 2 hours before departure</li>
+                    <li>Don't forget to bring a valid ID/Passport</li>
+                    <li>Check-in closes 1 hour before departure</li>
+                </ul>
+            </div>
+
+            <a href="{ManageBookingUrl}" class="button">Manage My Booking</a>
+        </div>
+
+        <div class="footer">
+            <p>This is an automated message, please do not reply to this email.</p>
+            <p>© 2024 SkyNile. All rights reserved.</p>
+            <p>For support, contact us at support@skynile.com</p>
+        </div>
+    </div>
+</body>
+</html>
