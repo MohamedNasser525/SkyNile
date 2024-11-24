@@ -16,10 +16,12 @@ namespace SkyNile.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
-        public PassengerController(UserManager<User> userManager, ApplicationDbContext context)
+        private readonly IMailingServices _mailingServices;
+        public PassengerController(UserManager<User> userManager, ApplicationDbContext context, IMailingServices mailingServices)
         {
             _userManager = userManager;
             _context = context;
+            _mailingServices = mailingServices;
         }
 
         [HttpPost("booking")]
@@ -28,8 +30,8 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> booking(Guid UserID,Guid FlightID,int TicketCount)
         {
-            var User = await _userManager.FindByIdAsync(UserID.ToString());
-            if (User == null)
+            var user = await _userManager.FindByIdAsync(UserID.ToString());
+            if (user == null)
             {
                 return BadRequest("user id invaild");
             }
@@ -43,7 +45,7 @@ namespace SkyNile.Controllers
             {
                 return BadRequest("no ticket available");
             }
-            Ticket t = new Ticket() {
+            Ticket ticket = new Ticket() {
                 Id = Guid.NewGuid(),
                 UserId = UserID,
                 FlightId = flight.Id,
@@ -51,8 +53,10 @@ namespace SkyNile.Controllers
                 TotalPrice = flight.Price * TicketCount
             };
             flight.Seatsnum -= 1;
-            _context.Tickets.Add(t);
+            _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
+            string body = await _mailingServices.PrepareBookingConfirmationBodyAsync(user, flight, ticket);
+            await _mailingServices.SendMailAsync(user.Email, "Booking Confirmation", body);
             return Ok("Booking Done");
         }
 

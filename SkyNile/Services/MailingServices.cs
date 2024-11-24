@@ -1,4 +1,5 @@
 using System;
+using BusinessLogic.Models;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -13,6 +14,23 @@ public class MailingServices : IMailingServices
     {
         _settings = settings.Value;
     }
+
+    public async Task<String> PrepareBookingConfirmationBodyAsync(User user, Flight flight, Ticket ticket)
+    {
+        string templatePath = $"{Directory.GetCurrentDirectory()}\\wwwroot\\html\\BookingConfirmationTemplate.html";
+        var str = new StreamReader(templatePath);
+        var mailBody = await str.ReadToEndAsync();
+        str.Close();
+        var body = mailBody.Replace("{TicketId}", ticket.Id.ToString()).Replace("{FlightId}", flight.Id.ToString()).
+                    Replace("{DepartureLocation}", flight.DepartureLocation).
+                    Replace("{ArrivalLocation}", flight.ArrivalLocation).
+                    Replace("{DepartureTime}", flight.DepartureTime.ToString()).
+                    Replace("{ArrivalTime}", flight.ArrivalTime.ToString()).
+                    Replace("{PassengerCount}", ticket.TicketCount.ToString()).
+                    Replace("{CustomerName}", user.UserName);
+        return body;
+    }
+
     public async Task SendMailAsync(string mailTo, string subject, string body, IList<IFormFile>? attachment = null)
     {
         var email = new MimeMessage
@@ -45,8 +63,6 @@ public class MailingServices : IMailingServices
         smtp.Authenticate(_settings.Email, _settings.Password);
         await smtp.SendAsync(email);
         smtp.Disconnect(true);
-        // // Log or handle the exception
-        // Console.WriteLine($"Email sending failed: {ex.Message}");
-        // Console.WriteLine($"{_settings.Email} && {_settings.Password}");
     }
+
 }
