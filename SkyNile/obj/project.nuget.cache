@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pxMFX14wQvU=",
+  "dgSpecHash": "7PCHmBx/xxk=",
   "success": true,
   "projectFilePath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,11 @@
     "C:\\Users\\moham\\.nuget\\packages\\azure.security.keyvault.secrets\\4.1.0\\azure.security.keyvault.secrets.4.1.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
+    "C:\\Users\\moham\\.nuget\\packages\\hangfire\\1.8.15\\hangfire.1.8.15.nupkg.sha512",
+    "C:\\Users\\moham\\.nuget\\packages\\hangfire.aspnetcore\\1.8.15\\hangfire.aspnetcore.1.8.15.nupkg.sha512",
+    "C:\\Users\\moham\\.nuget\\packages\\hangfire.core\\1.8.15\\hangfire.core.1.8.15.nupkg.sha512",
+    "C:\\Users\\moham\\.nuget\\packages\\hangfire.netcore\\1.8.15\\hangfire.netcore.1.8.15.nupkg.sha512",
+    "C:\\Users\\moham\\.nuget\\packages\\hangfire.sqlserver\\1.8.15\\hangfire.sqlserver.1.8.15.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\mailkit\\4.8.0\\mailkit.4.8.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
@@ -82,6 +87,7 @@
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\mimekit\\4.8.0\\mimekit.4.8.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\moham\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\scrutor\\3.3.0\\scrutor.3.3.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\swashbuckle.aspnetcore\\6.9.0\\swashbuckle.aspnetcore.6.9.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\7.0.0\\swashbuckle.aspnetcore.annotations.7.0.0.nupkg.sha512",

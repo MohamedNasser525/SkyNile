@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\html\\BookingConfirmationTemplate.html"
     },
     {
+      "Id": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\html\\BookingRemainderTemplate.html",
+      "PackagePath": "staticwebassets\\html\\BookingRemainderTemplate.html"
+    },
+    {
       "Id": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

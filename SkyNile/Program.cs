@@ -1,5 +1,6 @@
 using BusinessLogic.Models;
 using DataAccess.Data;
+using Hangfire;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -78,11 +79,13 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
         };
     });
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddHangfireServer();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment()) { }
-    //app.UseMigrationsEndPoint();
+//app.UseMigrationsEndPoint();
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -91,7 +94,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseHangfireDashboard("/dashboard");
 app.MapControllers();
 
 app.Run();
@@ -106,7 +109,7 @@ public static class MapsterConfiguration
 
         services.AddSingleton(config);
         services.AddScoped<IMapper, ServiceMapper>();
-        
+
         return services;
     }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+kMXbNRe3XABY6MHjOGgO0ImuFMyYuJb1hFgZWcXlzo=",
+  "Hash": "cXELu3HMuihdwNlTwPZa5miqqBPjqfCNlG/30XgNmWU=",
   "Source": "SkyNile",
   "BasePath": "_content/SkyNile",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\html\\BookingConfirmationTemplate.html"
+    },
+    {
+      "Identity": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\html\\BookingRemainderTemplate.html",
+      "SourceId": "SkyNile",
+      "SourceType": "Discovered",
+      "ContentRoot": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\",
+      "BasePath": "_content/SkyNile",
+      "RelativePath": "html/BookingRemainderTemplate.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\html\\BookingRemainderTemplate.html"
     },
     {
       "Identity": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\js\\site.js",

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyNile - Flight Departure Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #003580;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .countdown-banner {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { background-color: #ff6b6b; }
+            50% { background-color: #ff8787; }
+            100% { background-color: #ff6b6b; }
+        }
+        .content {
+            padding: 30px;
+        }
+        .flight-card {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #003580;
+        }
+        .flight-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .route-point {
+            text-align: center;
+        }
+        .route-point h3 {
+            margin: 5px 0;
+            color: #003580;
+        }
+        .route-divider {
+            flex-grow: 1;
+            height: 2px;
+            background: #003580;
+            margin: 0 20px;
+            position: relative;
+        }
+        .route-divider::after {
+            content: '✈️';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+        .checklist {
+            background: #e8f5e9;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .checklist h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .checklist ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .checklist li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+        }
+        .weather-forecast {
+            background: #e3f2fd;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .footer {
+            background: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SkyNile</h1>
+            <p>Flight Departure Reminder</p>
+        </div>
+        
+        <div class="countdown-banner">
+            Your Flight Departs in 24 Hours!
+        </div>
+        
+        <div class="content">
+            <h2>Get Ready for Your Journey!</h2>
+            <p>Dear {CustomerName},</p>
+            <p>This is a reminder that your flight is departing in 24 hours. Here are your flight details:</p>
+            
+            <div class="flight-card">
+                <div class="flight-route">
+                    <div class="route-point">
+                        <h3>{DepartureLocation}</h3>
+                        <p>{DepartureTime}</p>
+                    </div>
+                    <div class="route-divider"></div>
+                    <div class="route-point">
+                        <h3>{ArrivalLocation}</h3>
+                        <p>{ArrivalTime}</p>
+                    </div>
+                </div>
+                
+                <p><strong>Flight Number:</strong> {FlightId}</p>
+                <p><strong>Booking Reference:</strong> {TicketId}</p>
+            </div>
+
+            <div class="checklist">
+                <h3>Pre-Flight Checklist</h3>
+                <ul>
+                    <li>Pack all essential travel documents</li>
+                    <li>Prepare your ID/Passport</li>
+                    <li>Plan to arrive at the airport 2 hours before departure</li>
+                    <li>Check baggage restrictions</li>
+                    <li>Prepare for security screening</li>
+                    <li>Download your boarding pass</li>
+                </ul>
+            </div>
+
+            <div class="weather-forecast">
+                <h3>Weather Forecast at Destination</h3>
+                <p>{WeatherInfo}</p>
+            </div>
+
+            <p><strong>Need to modify your booking?</strong></p>
+            <a href="{ManageBookingUrl}" class="button">Manage My Booking</a>
+        </div>
+
+        <div class="footer">
+            <p>This is an automated message, please do not reply to this email.</p>
+            <p>© 2024 SkyNile. All rights reserved.</p>
+            <p>For urgent inquiries, contact us at support@skynile.com</p>
+        </div>
+    </div>
+</body>
+</html>

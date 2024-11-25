@@ -283,6 +283,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Hangfire": {
+              "target": "Package",
+              "version": "[1.8.15, )"
+            },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.8.15, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.8.15, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.8.0, )"
