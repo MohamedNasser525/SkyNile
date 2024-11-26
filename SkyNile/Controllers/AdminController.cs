@@ -90,37 +90,59 @@ namespace SkyNile.Controllers
         //     return 
         // }
 
-        [HttpPost("{id:guid}", Name = "AssignCrewFlight")]
+
+        [HttpGet("GetAvailableCrew/{flightId:guid}")]
+        [SwaggerOperation(Summary = "Get available Crew members list ready for flying")]
+        [SwaggerResponse(StatusCodes.Status200OK, "List retrieved successfully.")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "The flight is not found")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAvailableCrewList([FromRoute] Guid flightId)
+        {
+            // Check flight exists
+            // Search for Crews entity based on conditions 
+            // return the list
+            var crewPossibleFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
+            if (crewPossibleFlight == null)
+            {
+                return NotFound();
+            }
+            var allCrewMembers = await _userManager.GetUsersInRoleAsync("Crew");
+            var departureTime = crewPossibleFlight.DepartureTime;
+            var arrivalTime = crewPossibleFlight.ArrivalTime;
+            var twoDays = new TimeSpan(48, 0, 0);
+            var AvailableCrewMembers = allCrewMembers.Where(c =>
+            {
+                bool isCrewBusy = false;
+                if (c.Flight != null)
+                {
+                    isCrewBusy = c.Flight.Any(f =>
+                        {
+                            bool beforeFlight = f.ArrivalTime >= departureTime.Subtract(twoDays) && f.ArrivalTime <= departureTime;
+                            bool inRangeFlight = f.DepartureTime >= departureTime && f.DepartureTime <= arrivalTime;
+                            bool afterFlight = f.DepartureTime >= arrivalTime && f.DepartureTime - arrivalTime < twoDays;
+                            return beforeFlight || inRangeFlight || afterFlight;
+                        });
+                }
+                return !isCrewBusy;
+            }).ToList();
+            return Ok(AvailableCrewMembers);
+        }
+
+
+        [HttpPost("{flightId:guid}", Name = "AssignCrewFlight")]
         [SwaggerOperation(Summary = "Assign Crew member to a current flight")]
         [SwaggerResponse(StatusCodes.Status201Created, "Request was successfully Created.")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "The flight or crew member is not found")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AssignCrewFlight([FromRoute] Guid id, [FromBody] Guid flightId)
+        public async Task<IActionResult> AssignCrewFlight([FromRoute] Guid flightId, [FromBody] Guid id)
         {
             var crewMember = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
             var crewPossibleFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
             if (crewPossibleFlight == null || crewMember == null)
             {
                 return NotFound();
-            }
-            var departureTime = crewPossibleFlight.DepartureTime;
-            var arrivalTime = crewPossibleFlight.ArrivalTime;
-            var twoDays = new TimeSpan(48, 0, 0);
-            bool isCrewBusy = false;
-            if (crewMember.Flight != null)
-            {
-                isCrewBusy = crewMember.Flight.Any(f =>
-                {
-                    bool beforeFlight = f.ArrivalTime >= departureTime.Subtract(twoDays) && f.ArrivalTime <= departureTime;
-                    bool inRangeFlight = f.DepartureTime >= departureTime && f.DepartureTime <= arrivalTime;
-                    bool afterFlight = f.DepartureTime >= arrivalTime && f.DepartureTime - arrivalTime < twoDays;
-                    return beforeFlight || inRangeFlight || afterFlight;
-                });
-                if (isCrewBusy == true)
-                {
-                    return BadRequest("The crew is busy, Check their schedule");
-                }
             }
             crewMember.Flight.Add(crewPossibleFlight);
             await _context.SaveChangesAsync();
@@ -130,11 +152,11 @@ namespace SkyNile.Controllers
 
 
         [HttpDelete]
-        [SwaggerOperation(Summary = "Remove users crew on his Flight")]
-        [SwaggerResponse(StatusCodes.Status200OK, "cancel crow on flight")]
+        [SwaggerOperation(Summary = "Remove crew member from his Flight")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Crew member is removed successfully.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status401Unauthorized, "This API is for Admin members only")]
-        public async Task<IActionResult> cancelcrowonflight(Guid UserID, Guid FlightID)
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
+        public async Task<IActionResult> CancelCrewFromFlight(Guid UserID, Guid FlightID)
         {
             var increw = await _userManager.FindByIdAsync(UserID.ToString());
             if (increw == null)
