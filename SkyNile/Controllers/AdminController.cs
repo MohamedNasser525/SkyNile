@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyNile.DTO;
+using SkyNile.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SkyNile.Controllers
@@ -21,11 +22,21 @@ namespace SkyNile.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        public AdminController(ApplicationDbContext context, IMapper mapper, UserManager<User> userManager)
+        private readonly IFlightSchedulingService _flightScheduler;
+        public AdminController(ApplicationDbContext context, IMapper mapper, 
+        UserManager<User> userManager, IFlightSchedulingService flightScheduler)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _flightScheduler = flightScheduler;
+        }
+
+        [HttpGet("GetAvailableFlightSchedule/{targetDateTime:DateTime}")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime){
+            return Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(targetDateTime));
         }
 
         [HttpPost(Name = "InsertFlight")]

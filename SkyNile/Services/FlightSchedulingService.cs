@@ -12,7 +12,7 @@ public class FlightSchedulingService : IFlightSchedulingService
     {
         _context = context;
     }
-    public async Task<IEnumerable<DateTime>> GetAvailableFlightTimeSchedule(DateTime targetDate)
+    public async Task<IEnumerable<DateTime>> GetAvailableFlightTimeScheduleAsync(DateTime targetDate)
     {
         TimeSpan oneDay = new(24, 0, 0);
         TimeSpan allowedGapBetweenFlights = new(0, 30, 0);
