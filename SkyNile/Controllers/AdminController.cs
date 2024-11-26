@@ -99,29 +99,23 @@ namespace SkyNile.Controllers
         public async Task<IActionResult> AssignCrewFlight([FromRoute] Guid id, [FromBody] Guid flightId)
         {
             var crewMember = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
-            if (crewMember == null)
-            {
-                return NotFound();
-            }
             var crewPossibleFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
-            if (crewPossibleFlight == null)
+            if (crewPossibleFlight == null || crewMember == null)
             {
                 return NotFound();
             }
-            // Find any current crew flight in these two ranges [48 before departure, departure] in the current arrival
-            // && [departure, 48 after arrival] in the current crew departure
             var departureTime = crewPossibleFlight.DepartureTime;
-            var twoDaysSpan = new TimeSpan(48, 0, 0);
+            var arrivalTime = crewPossibleFlight.ArrivalTime;
+            var twoDays = new TimeSpan(48, 0, 0);
             bool isCrewBusy = false;
             if (crewMember.Flight != null)
             {
                 isCrewBusy = crewMember.Flight.Any(f =>
                 {
-                    bool v1 = f.ArrivalTime >= departureTime.Subtract(twoDaysSpan);
-                    bool v2 = f.ArrivalTime <= departureTime;
-                    bool v3 = f.DepartureTime >= departureTime;
-                    bool v4 = f.DepartureTime <= departureTime.Add(twoDaysSpan);
-                    return (v1 && v2) || (v3 && v4);
+                    bool beforeFlight = f.ArrivalTime >= departureTime.Subtract(twoDays) && f.ArrivalTime <= departureTime;
+                    bool inRangeFlight = f.DepartureTime >= departureTime && f.DepartureTime <= arrivalTime;
+                    bool afterFlight = f.DepartureTime >= arrivalTime && f.DepartureTime - arrivalTime < twoDays;
+                    return beforeFlight || inRangeFlight || afterFlight;
                 });
                 if (isCrewBusy == true)
                 {
