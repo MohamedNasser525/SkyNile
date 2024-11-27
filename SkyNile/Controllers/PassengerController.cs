@@ -25,7 +25,10 @@ namespace SkyNile.Controllers
             _context = context;
             _mailingServices = mailingServices;
         }
-
+        [HttpGet("GetUserInfo/{userId:guid}")]
+        public async Task<IActionResult> GetUserInfo([FromRoute] Guid userId){
+            return Ok(await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()));
+        }
         [HttpPost("booking")]
         [SwaggerOperation(Summary = "For passenger to book ticket")]
         [SwaggerResponse(StatusCodes.Status200OK, "Booking Done")]

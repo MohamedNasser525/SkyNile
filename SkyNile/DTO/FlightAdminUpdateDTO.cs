@@ -14,4 +14,8 @@ public class FlightAdminUpdateDTO
 
     [Display(Name = "Base flight price"), Required(ErrorMessage = "Base flight must be specified")]
     public double Price { get; set; }
+
+    [Display(Name = "Flight Status"), Required(ErrorMessage = "Base flight must be specified")]
+
+    public FlightStatus FlightStatus { get; set; }
 }

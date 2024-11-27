@@ -79,4 +79,18 @@ public class MailingServices : IMailingServices
         await smtp.SendAsync(email);
         smtp.Disconnect(true);
     }
+
+    public async Task<String> PrepareFlightCancellationBodyAsync(User user, Flight flight, Ticket ticket){
+
+        string templatePath = $"{Directory.GetCurrentDirectory()}\\wwwroot\\html\\FlightCancellationTemplate.html";
+        var str = new StreamReader(templatePath);
+        var mailBody = await str.ReadToEndAsync();
+        str.Close();
+        var body = mailBody.Replace("{TicketId}", ticket.Id.ToString()).Replace("{FlightId}", flight.Id.ToString()).
+                    Replace("{DepartureTime}", flight.DepartureTime.ToString()).
+                    Replace("{ArrivalTime}", flight.ArrivalTime.ToString()).
+                    Replace("{CustomerName}", user.UserName);
+        return body;
+    }
+
 }

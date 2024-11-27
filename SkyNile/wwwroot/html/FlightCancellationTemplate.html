@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Cancellation Notification</title>
+    <style>
+        /* Inline styles will be applied directly in the HTML for better email client compatibility */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background-color: #0073e6;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .email-body {
+            padding: 20px;
+            color: #333333;
+        }
+        .email-body h2 {
+            font-size: 20px;
+            color: #e60000;
+        }
+        .email-body p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .email-footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #777777;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>SkyNile</h1>
+            <p>Your trusted flight reservation system</p>
+        </div>
+        <div class="email-body">
+            <h2>Flight Cancellation Notice</h2>
+            <p>Dear [CustomerName],</p>
+            <p>We regret to inform you that your flight <strong>[FlightId]</strong> scheduled to depart on <strong>[DepartureDate]</strong> at <strong>[DepartureTime]</strong> has been canceled due to unexpected circumstances.</p>
+            <p>We apologize for the inconvenience caused. Our team is working to assist you with rebooking or providing a full refund for your ticket with issued number <strong>[TicketId]</strong>. Please contact us at <strong>support@skynile.com</strong> or visit your account on our website for further assistance.</p>
+            <p>Thank you for understanding,</p>
+            <p>The SkyNile Team</p>
+        </div>
+        <div class="email-footer">
+            <p>&copy; 2024 SkyNile. All rights reserved.</p>
+            <p>Please do not reply to this email. For assistance, contact support.</p>
+        </div>
+    </div>
+</body>
+</html>

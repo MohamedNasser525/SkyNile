@@ -23,19 +23,22 @@ namespace SkyNile.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IFlightSchedulingService _flightScheduler;
-        public AdminController(ApplicationDbContext context, IMapper mapper, 
-        UserManager<User> userManager, IFlightSchedulingService flightScheduler)
+        private readonly IMailingServices _mailingServices;
+        public AdminController(ApplicationDbContext context, IMapper mapper,
+        UserManager<User> userManager, IFlightSchedulingService flightScheduler, IMailingServices mailingServices)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
             _flightScheduler = flightScheduler;
+            _mailingServices = mailingServices;
         }
 
         [HttpGet("GetAvailableFlightSchedule/{targetDateTime:DateTime}")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime){
+        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime)
+        {
             return Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(targetDateTime));
         }
 
@@ -86,20 +89,31 @@ namespace SkyNile.Controllers
             return NoContent();
         }
 
-        // [HttpDelete("id:guid", Name = "DeleteFlight")]
-        // [SwaggerOperation(Summary = "Cancel flight")]
-        // [SwaggerResponse(StatusCodes.Status200OK, "Your flight is deleted successfully.")]
-        // [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
-        // [SwaggerResponse(StatusCodes.Status404NotFound, "The desired flight is not found.")]
-        // public async Task<IActionResult> DeleteFlight(Guid id){
-        //     var flightToDelete = await _context.Flights.FirstOrDefaultAsync(f => f.Id == id);
-        //     if (flightToDelete == null){
-        //         return NotFound();
-        //     }
-        //     _context.Flights.Remove(flightToDelete);
-        //     await _context.SaveChangesAsync();
-        //     return 
-        // }
+        [HttpPut("DeleteFlight/{flightId:guid}", Name = "DeleteFlight")]
+        [SwaggerOperation(Summary = "Cancel flight")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Your flight is deleted successfully.")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "The desired flight is not found.")]
+        public async Task<IActionResult> DeleteFlight(Guid flightId)
+        {
+            var flightToDelete = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
+            if (flightToDelete == null)
+            {
+                return NotFound();
+            }
+            // Get all users attached to this flight
+            var ticketsToNotify = _context.Tickets.Where(t => t.FlightId == flightId);
+            foreach(var ticket in ticketsToNotify){
+                ticket.TicketStatus = TicketStatus.CancelledWithRefund;
+                var userIdToNotify = ticket.UserId;
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userIdToNotify.ToString());
+                var body = await _mailingServices.PrepareFlightCancellationBodyAsync(user, flightToDelete, ticket);
+                await _mailingServices.SendMailAsync(user.Email, "Flight Cancellation Notice", body,null);
+            }
+            flightToDelete.FlightStatus = FlightStatus.Cancelled;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
 
         [HttpGet("GetAvailableCrew/{flightId:guid}")]
