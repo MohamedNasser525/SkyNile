@@ -18,14 +18,14 @@ public class FlightSchedulingService : IFlightSchedulingService
         TimeSpan allowedGapBetweenFlights = new(0, 30, 0);
         List<DateTime> bestDateScheduling = new();
 
-        bool isTargetOccupied = await _context.Flights.AnyAsync(f => f.DepartureTime >= targetDate && f.DepartureTime <= targetDate.Add(allowedGapBetweenFlights));
+        bool isTargetOccupied = await _context.Flights.AnyAsync(f => f.DepartureTime >= targetDate.Subtract(allowedGapBetweenFlights) && f.DepartureTime <= targetDate.Add(allowedGapBetweenFlights));
         if (!isTargetOccupied)
         {
             bestDateScheduling.Add(targetDate);
             return bestDateScheduling;
         }
 
-        var occupiedFlightsDates = await _context.Flights.Where(f => f.DepartureTime >= targetDate && f.DepartureTime <= targetDate.Add(oneDay)).
+        var occupiedFlightsDates = await _context.Flights.Where(f => f.DepartureTime >= targetDate.Subtract(allowedGapBetweenFlights) && f.DepartureTime <= targetDate.Add(oneDay)).
         OrderBy(f => f.DepartureTime).ToListAsync();
 
         Flight? previousHead = null;
