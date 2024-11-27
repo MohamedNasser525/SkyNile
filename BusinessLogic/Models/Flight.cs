@@ -1,5 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+public enum FlightStatus
+{
+    Scheduled,
+    Delayed,
+    Completed,
+    Cancelled
+}
+
 namespace BusinessLogic.Models
 {
     [Index(nameof(DepartureTime))]
@@ -18,7 +26,8 @@ namespace BusinessLogic.Models
 
         public int Seatsnum { get; set; }
         public double Price { get; set; }
-
+        public FlightStatus FlightStatus { get; set; }
+        
         public Guid AirplaneId { get; set; }
         public virtual Airplane Airplane { get; set; } 
         public virtual List<User> User { get; set; }
