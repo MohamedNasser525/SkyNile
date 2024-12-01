@@ -1,11 +1,13 @@
 using BusinessLogic.Models;
-using BusinessLogic.Utilities;
 using DataAccess.Data;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyNile.DTO;
+using SkyNile.Services.Interfaces;
 
 namespace SkyNile.Controllers
 {
@@ -14,19 +16,27 @@ namespace SkyNile.Controllers
     public class FlightController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public FlightController(ApplicationDbContext db)
+        private readonly ISearchService _flightSearchService;
+        private readonly UserManager<User> _userManager;
+        public FlightController(ApplicationDbContext db, ISearchService flightSearchService, UserManager<User> userManager)
         {
             _context = db;
+            _flightSearchService = flightSearchService;
+            _userManager = userManager;
         }
 
-        [HttpGet(Name = "GetFlights")]
+        [HttpGet("GetFlights/{userId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> GetAvailableFlightsAsync([FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
+        public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
-            var expression = DynamicSearchHelper.BuildSearchExpression<Flight>(flightCriteriaDTO);
-            var results = await _context.Flights.Where(expression).ToListAsync();
-            return Ok(results);
+            var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
+            var beforeSortList = await _context.Flights.Where(expression).ToListAsync();
+            var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
+            FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
+           var sortedDTO =  _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
+           var flights = sortedDTO.Adapt<List<Flight>>();
+            return Ok(flights);
         }
 
         [HttpGet("{id:guid}", Name = "GetFlightById")]

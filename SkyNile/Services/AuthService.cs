@@ -45,7 +45,8 @@ namespace SkyNile.Services
             {
                 UserName = model.Name,
                 Email = model.Email,
-                PassportNumber = model.PassportNumber
+                PassportNumber = model.PassportNumber,
+                FlightPreference = model.FlightPreference
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

@@ -7,7 +7,7 @@ public class DateRangeAttribute : ValidationAttribute
 {
     private readonly int _daysAhead;
 
-    public DateRangeAttribute(int daysAhead = 60)
+    public DateRangeAttribute(int daysAhead = 500)
     {
         _daysAhead = daysAhead;
     }

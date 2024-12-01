@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\html\\BookingRemainderTemplate.html"
     },
     {
+      "Id": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\html\\FlightCancellationTemplate.html",
+      "PackagePath": "staticwebassets\\html\\FlightCancellationTemplate.html"
+    },
+    {
       "Id": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

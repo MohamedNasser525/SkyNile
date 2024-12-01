@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BusinessLogic.Models;
 
 namespace SkyNile.DTO
 {
@@ -22,6 +23,9 @@ namespace SkyNile.DTO
 
         [Display(Name = "Passport Number")]
         public string PassportNumber { get; set; }
+
+        [Display(Name = "Flight Search Preference")]
+        public FlightPreference FlightPreference { get; set; }
     }
 
 }

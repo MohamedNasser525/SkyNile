@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cXELu3HMuihdwNlTwPZa5miqqBPjqfCNlG/30XgNmWU=",
+  "Hash": "jWVmTOlesROlhUzXA6atPNugQpxphPuKmPZskpeSSGA=",
   "Source": "SkyNile",
   "BasePath": "_content/SkyNile",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\html\\BookingRemainderTemplate.html"
+    },
+    {
+      "Identity": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\html\\FlightCancellationTemplate.html",
+      "SourceId": "SkyNile",
+      "SourceType": "Discovered",
+      "ContentRoot": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\",
+      "BasePath": "_content/SkyNile",
+      "RelativePath": "html/FlightCancellationTemplate.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\html\\FlightCancellationTemplate.html"
     },
     {
       "Identity": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\wwwroot\\js\\site.js",

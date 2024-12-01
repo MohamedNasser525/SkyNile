@@ -24,6 +24,10 @@ namespace DataAccess.Data
             builder.Entity<Ticket>().Property(t => t.TicketStatus).
             HasConversion(v => v.ToString(), v => (TicketStatus)Enum.Parse(typeof(TicketStatus), v)).
             HasDefaultValue(TicketStatus.Pending);
+
+            builder.Entity<User>().Property(u => u.FlightPreference).
+            HasConversion(v => v.ToString(), v => (FlightPreference)Enum.Parse(typeof(FlightPreference), v)).
+            HasDefaultValue(FlightPreference.Balanced);
             
         }
 

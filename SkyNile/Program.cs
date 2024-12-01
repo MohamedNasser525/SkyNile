@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SkyNile.HelperModel;
 using SkyNile.Services;
+using SkyNile.Services.Interfaces;
 using SkyNile.Settings;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
@@ -25,6 +26,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddTransient<IMailingServices, MailingServices>();
 builder.Services.AddTransient<IFlightSchedulingService, FlightSchedulingService>();
+builder.Services.AddTransient<ISearchService, FlightSearchService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

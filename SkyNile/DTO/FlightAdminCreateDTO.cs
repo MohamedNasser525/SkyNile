@@ -4,7 +4,7 @@ namespace SkyNile.DTO;
 
 public class FlightAdminCreateDTO
 {
-    [Display(Name = "Departure Time"), Required(ErrorMessage = "Departure Time is required."), DateRange(60), DataType(DataType.DateTime)]
+    [Display(Name = "Departure Time"), Required(ErrorMessage = "Departure Time is required."), DateRange(90), DataType(DataType.DateTime)]
     public DateTime DepartureTime { get; set; }
 
     [Display(Name = "Departure Location"), Required(ErrorMessage = "Departure Location is required.")]
