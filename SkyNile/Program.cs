@@ -85,6 +85,9 @@ builder.Services.AddAuthentication(options =>
     });
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHangfireServer();
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+    options.TokenLifespan = TimeSpan.FromMinutes(5));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

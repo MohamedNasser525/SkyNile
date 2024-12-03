@@ -8,6 +8,7 @@ namespace SkyNile.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        [Authorize]
         [HttpGet("OK")]
         public async Task<IActionResult> ok()
         {
@@ -15,7 +16,7 @@ namespace SkyNile.Controllers
         }
 
 
-       // [Authorize(Roles = "Crew")]
+        // [Authorize(Roles = "Crew")]
         [HttpGet("AuthOK")]
         public async Task<IActionResult> AuthOk()
         {
