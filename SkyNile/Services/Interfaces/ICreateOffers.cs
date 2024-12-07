@@ -4,5 +4,6 @@
     {
         public string GenerateRandomString(int length);
         public double GenerateRandomDouble();
+
     }
 }
