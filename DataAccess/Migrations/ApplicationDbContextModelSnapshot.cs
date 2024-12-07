@@ -44,7 +44,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Airplanes");
+                    b.ToTable("Airplanes", (string)null);
                 });
 
             modelBuilder.Entity("BusinessLogic.Models.Flight", b =>
@@ -94,7 +94,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("DepartureTime");
 
-                    b.ToTable("Flights");
+                    b.ToTable("Flights", (string)null);
                 });
 
             modelBuilder.Entity("BusinessLogic.Models.Ticket", b =>
@@ -130,7 +130,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId1");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("BusinessLogic.Models.User", b =>
@@ -217,7 +217,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FlightUser");
+                    b.ToTable("FlightUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

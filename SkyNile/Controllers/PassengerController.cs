@@ -29,11 +29,11 @@ namespace SkyNile.Controllers
         public async Task<IActionResult> GetUserInfo([FromRoute] Guid userId){
             return Ok(await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()));
         }
-        [HttpPost("booking")]
+        [HttpPost("BookFlight")]
         [SwaggerOperation(Summary = "For passenger to book ticket")]
         [SwaggerResponse(StatusCodes.Status200OK, "Booking Done")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> booking(Guid UserID, Guid FlightID, int TicketCount)
+        public async Task<IActionResult> BookFlight(Guid UserID, Guid FlightID, int TicketCount)
         {
             var user = await _userManager.FindByIdAsync(UserID.ToString());
             if (user == null)

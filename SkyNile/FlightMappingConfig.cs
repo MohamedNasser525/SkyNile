@@ -13,5 +13,8 @@ public class FlightMappingConfig : IRegister
             .Map(dest => dest.DepartureTime, src => src.DepartureTime)
             .Map(dest => dest.Price, src => src.Price)
             .Map(dest => dest.ArrivalTime, src => src.ArrivalTime);
+
+        config.ForType<FlightSortDTO, Flight>()
+        .Map(dest => dest.DepartureTime, src => src.DepartureTime);
     }
 }

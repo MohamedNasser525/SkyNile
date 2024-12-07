@@ -28,14 +28,14 @@ namespace SkyNile.Controllers
         [HttpGet("GetFlights/{userId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
+        public async Task<ActionResult> SearchForAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
             var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
             var beforeSortList = await _context.Flights.Where(expression).ToListAsync();
             var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
             FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
            var sortedDTO =  _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
-           var flights = sortedDTO.Adapt<List<Flight>>();
+           var flights = sortedDTO.Adapt(beforeSortList);
             return Ok(flights);
         }
 
