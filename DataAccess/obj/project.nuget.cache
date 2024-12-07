@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "l693w0/ZWX5Rua+PFTzdVAx22MDgGR0PTG9lIePnKuAnfAAH57S8SdmdGQ/L32XEl/SwlFqxL3tQt1ESKrfH8g==",
+=======
+  "dgSpecHash": "dt1kfk+jSBw=",
+>>>>>>> 13ecbcca424a478ce764ce0cbb769c449665f897
   "success": true,
   "projectFilePath": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [

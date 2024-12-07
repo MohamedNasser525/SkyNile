@@ -6394,11 +6394,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\SkyNile\\SkyNile.csproj",
       "projectName": "SkyNile",
       "projectPath": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\SkyNile\\SkyNile.csproj",
       "packagesPath": "C:\\Users\\monasser\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\SkyNile\\obj\\",
+=======
+      "projectUniqueName": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "projectName": "SkyNile",
+      "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\SkyNile.csproj",
+      "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\SkyNile\\obj\\",
+>>>>>>> 13ecbcca424a478ce764ce0cbb769c449665f897
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6419,8 +6427,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
               "projectPath": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+=======
+            "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+>>>>>>> 13ecbcca424a478ce764ce0cbb769c449665f897
             },
             "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\DataAccess\\DataAccess.csproj": {
               "projectPath": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\DataAccess\\DataAccess.csproj"

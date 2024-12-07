@@ -5818,8 +5818,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
               "projectPath": "C:\\Users\\monasser\\Downloads\\new\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+=======
+            "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+>>>>>>> 13ecbcca424a478ce764ce0cbb769c449665f897
             }
           }
         }

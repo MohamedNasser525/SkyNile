@@ -45,8 +45,7 @@ namespace SkyNile.Controllers
             var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
             FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
             var sortedDTO =  _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
-            var flights = sortedDTO.Adapt<List<Flight>>();
-            return Ok(flights);
+            return Ok(sortedDTO);
         }
 
         [HttpGet("{id:guid}", Name = "GetFlightById")]
