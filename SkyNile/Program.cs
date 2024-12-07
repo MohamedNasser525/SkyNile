@@ -24,6 +24,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICreateOffers, CreateOffers>();
 builder.Services.AddTransient<IMailingServices, MailingServices>();
 builder.Services.AddTransient<IFlightSchedulingService, FlightSchedulingService>();
 builder.Services.AddTransient<ISearchService, FlightSearchService>();

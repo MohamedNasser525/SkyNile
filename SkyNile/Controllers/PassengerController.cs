@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Cms;
 using SkyNile.DTO;
 using SkyNile.Services;
+using SkyNile.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SkyNile.Controllers
@@ -19,11 +20,13 @@ namespace SkyNile.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IMailingServices? _mailingServices;
-        public PassengerController(UserManager<User> userManager, ApplicationDbContext context, IMailingServices mailingServices)
+        private readonly ICreateOffers _ICreateOffers;
+        public PassengerController(UserManager<User> userManager, ApplicationDbContext context, IMailingServices mailingServices, ICreateOffers ICreateOffers)
         {
             _userManager = userManager;
             _context = context;
             _mailingServices = mailingServices;
+            _ICreateOffers = ICreateOffers;
         }
         [HttpGet("GetUserInfo/{userId:guid}")]
         public async Task<IActionResult> GetUserInfo([FromRoute] Guid userId){
@@ -64,6 +67,20 @@ namespace SkyNile.Controllers
                 TicketCount = TicketCount,
                 TotalPrice = flight.Price * TicketCount
             };
+            // create offer
+            Offer offer = null;
+            if (ticket.TotalPrice > 1000 || ticket.TicketCount > 3)
+            {
+                offer = new Offer()
+                {
+                    Id = Guid.NewGuid(),
+                    Code = _ICreateOffers.GenerateRandomString(10),
+                    Discount = _ICreateOffers.GenerateRandomDouble(),
+                    Ticket = ticket,
+                };
+                await _context.Offers.AddAsync(offer);
+            }
+
             flight.Seatsnum -= 1;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
@@ -78,7 +95,12 @@ namespace SkyNile.Controllers
                 BackgroundJob.Schedule(() => _mailingServices.SendMailAsync(user.Email, "Flight departure remainder",
                 bodyForRemainder, null), timeLeftForFlight);
             }
-            return Ok("Your flight Booked Successfully.");
+
+            return Ok(new
+            {
+                Message = "Your flight booked successfully.",
+                Offer = offer==null? null: new{ offer.Code,offer.Discount}
+            });
         }
         [HttpPatch]
         [SwaggerOperation(Summary = "For passenger to update ticket's seat count")]
