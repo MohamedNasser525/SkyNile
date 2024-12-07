@@ -11,10 +11,10 @@ public class FlightSearchService : ISearchService
 {
     // UserPreferences, Flights
 
-    private double NormalizePrice(double value, double min, double max) => value - min / (max - min);
+    private double NormalizePrice(double value, double min, double max) => min == max? 1 : (value - min) / (max - min);
     private double NormalizeDuration(TimeSpan value, TimeSpan min, TimeSpan max) {
         double valueTicks = value.Ticks, minTicks = min.Ticks, maxTicks = max.Ticks; 
-        return min == max? valueTicks : valueTicks - minTicks / (maxTicks - minTicks);
+        return min == max? 1 : (valueTicks - minTicks) / (maxTicks - minTicks);
     }
 
     /// <summary>
