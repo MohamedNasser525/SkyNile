@@ -37,22 +37,35 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Facemo",
+        Title = "SkyNile",
         Version = "v1",
         Description = "Backend API for An airline company is a business that provides air transport services for passengers.",
     });
     options.EnableAnnotations();
-    options.AddSecurityDefinition("Bearer Token", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Standard Authorization header using the Bearer scheme (JWT). Example: bearer {token}",
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer Token"
-    });
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
 
-    // Apply security requirements globally
-    options.OperationFilter<SecurityRequirementsOperationFilter>(true, "Bearer Token");
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+ {
+     {
+         new OpenApiSecurityScheme
+         {
+             Reference = new OpenApiReference
+             {
+                 Type = ReferenceType.SecurityScheme,
+                 Id = "Bearer"
+             }
+         },
+         new string[] { }
+     }
+ });
     options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
 });
 builder.Services.AddControllers();
@@ -85,6 +98,9 @@ builder.Services.AddAuthentication(options =>
     });
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHangfireServer();
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+    options.TokenLifespan = TimeSpan.FromMinutes(5));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

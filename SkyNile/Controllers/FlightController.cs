@@ -31,11 +31,21 @@ namespace SkyNile.Controllers
         public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
             var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
-            var beforeSortList = await _context.Flights.Where(expression).ToListAsync();
+            var beforeSortList = await _context.Flights.Where(expression).ToListAsync();           
+            foreach (var flight in beforeSortList)
+            {
+                //Dynamic Price Change
+                if (flight.UpdatePrisce == false && flight.DepartureTime <= DateTime.Now.AddHours(24))
+                {
+                    flight.Price *= 1.3;
+                    flight.UpdatePrisce = true;
+                }
+            }
+            await _context.SaveChangesAsync();
             var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
             FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
-           var sortedDTO =  _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
-           var flights = sortedDTO.Adapt<List<Flight>>();
+            var sortedDTO =  _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
+            var flights = sortedDTO.Adapt<List<Flight>>();
             return Ok(flights);
         }
 
@@ -48,6 +58,13 @@ namespace SkyNile.Controllers
             var targetFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == id);
             if (targetFlight == null)
                 return NotFound("No flight with such information provided");
+            //Dynamic Price Change
+            if (targetFlight.UpdatePrisce == false && targetFlight.DepartureTime <= DateTime.Now.AddHours(24))
+            {
+                targetFlight.Price *= 1.3;
+                targetFlight.UpdatePrisce = true;
+            }
+            await _context.SaveChangesAsync();
             return Ok(targetFlight);
         }
     }

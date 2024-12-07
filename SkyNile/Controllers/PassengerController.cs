@@ -50,6 +50,12 @@ namespace SkyNile.Controllers
             {
                 return BadRequest("no ticket available");
             }
+            //Dynamic Price Change
+            if (flight.UpdatePrisce == false && flight.DepartureTime <= DateTime.Now.AddHours(24))
+            {
+                flight.Price *= 1.3;
+                flight.UpdatePrisce = true;
+            }
             Ticket ticket = new Ticket()
             {
                 Id = Guid.NewGuid(),
