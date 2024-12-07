@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SkyNile.HelperModel;
+using SkyNile.Infrastructures;
 using SkyNile.Services;
 using SkyNile.Services.Interfaces;
 using SkyNile.Settings;
@@ -100,7 +101,8 @@ builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.Ge
 builder.Services.AddHangfireServer();
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
     options.TokenLifespan = TimeSpan.FromMinutes(5));
-
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -115,6 +117,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHangfireDashboard("/dashboard");
+app.UseExceptionHandler();
 app.MapControllers();
 
 app.Run();
