@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SkyNile.DTO
 {
@@ -13,6 +14,7 @@ namespace SkyNile.DTO
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*.,?]).+$", ErrorMessage = "Invalid input! The data must contain at least one uppercase letter, one lowercase letter, one special character, and can include letters, numbers, and symbols")]
         [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
         [Display(Name = "Password")]
+        [PasswordPropertyText]
         public string Password { get; set; }
     }
 }

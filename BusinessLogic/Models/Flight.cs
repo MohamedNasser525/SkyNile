@@ -26,6 +26,7 @@ namespace BusinessLogic.Models
 
         public int Seatsnum { get; set; }
         public double Price { get; set; }
+        public bool UpdatePrisce { get; set; } = false;
         public FlightStatus FlightStatus { get; set; }
         
         public Guid AirplaneId { get; set; }
