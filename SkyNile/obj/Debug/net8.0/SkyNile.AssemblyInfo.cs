@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkyNile")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9e18e5a6bb84b5532e46ba645de2008cd02dcbc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18f1e9ff828f4bd972c9a1ed9ed4caa8330d65f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("SkyNile")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SkyNile")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
