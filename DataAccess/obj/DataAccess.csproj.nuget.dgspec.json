@@ -4,14 +4,14 @@
     "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+    "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj",
         "projectName": "BusinessLogic",
-        "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj",
+        "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\obj\\",
+        "outputPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -146,8 +146,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
-                "projectPath": "c:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
+              "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\moham\\Solutions\\SkyNile\\SkyNile\\BusinessLogic\\BusinessLogic.csproj"
               }
             }
           }
