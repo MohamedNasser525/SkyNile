@@ -18,11 +18,14 @@ namespace SkyNile.Controllers
         private readonly ApplicationDbContext _context;
         private readonly ISearchService _flightSearchService;
         private readonly UserManager<User> _userManager;
-        public FlightController(ApplicationDbContext db, ISearchService flightSearchService, UserManager<User> userManager)
+        private readonly ICacheService _cacheService;
+        public FlightController(ApplicationDbContext db, ISearchService flightSearchService,
+        UserManager<User> userManager, ICacheService cacheService)
         {
             _context = db;
             _flightSearchService = flightSearchService;
             _userManager = userManager;
+            _cacheService = cacheService;
         }
 
         [HttpGet("GetFlights/{userId:guid}")]
@@ -30,8 +33,17 @@ namespace SkyNile.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
-            var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
-            var beforeSortList = await _context.Flights.Where(expression).ToListAsync();           
+            string cacheKey = $"FlightSearch_{flightCriteriaDTO.DepartureLocation}_{flightCriteriaDTO.ArrivalLocation}";
+            var cachedFlights = _cacheService.GetData<IEnumerable<Flight>>(cacheKey);
+            IEnumerable<Flight> beforeSortList;
+            if (cachedFlights is not null)
+                beforeSortList = cachedFlights;
+            else
+            {
+                var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
+                beforeSortList = await _context.Flights.Where(expression).ToListAsync();
+                _cacheService.SetData<IEnumerable<Flight>>(cacheKey, beforeSortList);
+            }
             foreach (var flight in beforeSortList)
             {
                 //Dynamic Price Change
@@ -44,7 +56,7 @@ namespace SkyNile.Controllers
             await _context.SaveChangesAsync();
             var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
             FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
-            var sortedDTO =  _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
+            var sortedDTO = _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
             return Ok(sortedDTO);
         }
 

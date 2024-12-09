@@ -104,6 +104,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddMemoryCache(); // This Line is called automatically if its MVC or Razor, But its a MUST in APIs
+builder.Services.AddScoped<ICacheService, CacheService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyNile.DTO;
 using SkyNile.Services;
+using SkyNile.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SkyNile.Controllers
@@ -24,17 +25,21 @@ namespace SkyNile.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IFlightSchedulingService _flightScheduler;
         private readonly IMailingServices _mailingServices;
+        private readonly ICacheService _cacheService;
         public AdminController(ApplicationDbContext context, IMapper mapper,
-        UserManager<User> userManager, IFlightSchedulingService flightScheduler, IMailingServices mailingServices)
+        UserManager<User> userManager, IFlightSchedulingService flightScheduler, IMailingServices mailingServices,
+        ICacheService cacheService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
             _flightScheduler = flightScheduler;
             _mailingServices = mailingServices;
+            _cacheService = cacheService;
         }
 
         [HttpGet("GetAvailableFlightSchedule/{targetDateTime:DateTime}")]
+        [SwaggerOperation(Summary = "Ensure there is no overlapping flights")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime)
@@ -49,6 +54,7 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> InsertFlight([FromBody] FlightAdminCreateDTO flightDTO)
         {
+            string cacheKey = $"FlightSearch_{flightDTO.DepartureLocation}_{flightDTO.ArrivalLocation}";
             var airplane = await _context.Airplanes.FirstOrDefaultAsync(a => a.Id == flightDTO.AirplaneId);
             if (airplane == null)
             {
@@ -61,12 +67,13 @@ namespace SkyNile.Controllers
             var flight = flightDTO.Adapt<Flight>();
             await _context.Flights.AddAsync(flight);
             await _context.SaveChangesAsync();
+            _cacheService.RemoveData(cacheKey);
             return CreatedAtAction(
             nameof(FlightController.GetFlightById), // Reference method in FlightController
             controllerName: "Flight",
             routeValues: new { id = flight.Id },
             value: flight
-        );
+            );
 
         }
 
@@ -84,13 +91,14 @@ namespace SkyNile.Controllers
                 return NotFound();
             }
             flightDTO.Adapt(currentFlight);
-            Console.WriteLine("Hello");
             await _context.SaveChangesAsync();
+            string cacheKey = $"FlightSearch_{currentFlight.DepartureLocation}_{currentFlight.ArrivalLocation}";
+            _cacheService.RemoveData(cacheKey);
             return NoContent();
         }
 
         [HttpPut("DeleteFlight/{flightId:guid}", Name = "DeleteFlight")]
-        [SwaggerOperation(Summary = "Cancel flight")]
+        [SwaggerOperation(Summary = "Cancel flight & Notify Subscribers to this flight")]
         [SwaggerResponse(StatusCodes.Status200OK, "Your flight is deleted successfully.")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "The desired flight is not found.")]
