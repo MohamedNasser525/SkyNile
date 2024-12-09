@@ -103,6 +103,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
     options.TokenLifespan = TimeSpan.FromMinutes(5));
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddMemoryCache(); // This Line is called automatically if its MVC or Razor, But its a MUST in APIs
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
