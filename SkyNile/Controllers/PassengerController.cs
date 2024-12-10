@@ -64,6 +64,19 @@ namespace SkyNile.Controllers
                 TicketCount = TicketCount,
                 TotalPrice = flight.Price * TicketCount
             };
+            // create offer
+            Offer offer = null;
+            if (ticket.TotalPrice > 1000 || ticket.TicketCount > 3)
+            {
+                offer = new Offer()
+                {
+                    Id = Guid.NewGuid(),
+                    Code = _ICreateOffers.GenerateRandomString(10),
+                    Discount = _ICreateOffers.GenerateRandomDouble(),
+                    Ticket = ticket,
+                };
+                await _context.Offers.AddAsync(offer);
+            }
             flight.Seatsnum -= 1;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();

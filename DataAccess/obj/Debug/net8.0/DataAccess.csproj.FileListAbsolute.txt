@@ -52,3 +52,21 @@ C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain S
 C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.pdb
 C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.genruntimeconfig.cache
 C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\SkyNile\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\bin\Debug\net8.0\DataAccess.deps.json
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\bin\Debug\net8.0\DataAccess.runtimeconfig.json
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\bin\Debug\net8.0\DataAccess.dll
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\bin\Debug\net8.0\DataAccess.pdb
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\bin\Debug\net8.0\BusinessLogic.dll
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\bin\Debug\net8.0\BusinessLogic.pdb
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.csproj.AssemblyReference.cache
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfo.cs
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.sourcelink.json
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CopyComplete
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.dll
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.pdb
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\DataAccess.genruntimeconfig.cache
+C:\Users\monasser\OneDrive - Faculty of Computer and Information Sciences (Ain Shams University)\Desktop\New folder (3)\SkyNile\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
