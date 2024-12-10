@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Cms;
 using SkyNile.DTO;
 using SkyNile.Services;
+using SkyNile.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SkyNile.Controllers
@@ -19,11 +20,13 @@ namespace SkyNile.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IMailingServices? _mailingServices;
-        public PassengerController(UserManager<User> userManager, ApplicationDbContext context, IMailingServices mailingServices)
+        private readonly ICreateOffers _ICreateOffers;
+        public PassengerController(ICreateOffers createOffers,UserManager<User> userManager, ApplicationDbContext context, IMailingServices mailingServices)
         {
             _userManager = userManager;
             _context = context;
             _mailingServices = mailingServices;
+            _ICreateOffers = createOffers;
         }
         [HttpGet("GetUserInfo/{userId:guid}")]
         public async Task<IActionResult> GetUserInfo([FromRoute] Guid userId){

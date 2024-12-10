@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLogic.Models
 {
@@ -13,7 +14,8 @@ namespace BusinessLogic.Models
 
     public class User : IdentityUser
     {
-
+        [MaxLength(14)] 
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Passport number must contain only alphanumeric characters.")]
         public string PassportNumber { get; set; }
         public string? Image { get; set; }
         public FlightPreference FlightPreference { get; set; }

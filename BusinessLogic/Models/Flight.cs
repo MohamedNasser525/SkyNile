@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 public enum FlightStatus
 {
@@ -21,7 +22,9 @@ namespace BusinessLogic.Models
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
 
+        [MaxLength(50)]
         public string DepartureLocation { get; set; }
+        [MaxLength(50)]
         public string ArrivalLocation { get; set; }
 
         public int Seatsnum { get; set; }
