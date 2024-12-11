@@ -46,5 +46,10 @@ public class FlightSchedulingService : IFlightSchedulingService
         }
         return bestDateScheduling;
     }
+    public async Task DeleteFlightTimeScheduleAsync(Flight f)
+    {
+        _context.Flights.Remove(f);
+        await _context.SaveChangesAsync();
+    }
 }
 

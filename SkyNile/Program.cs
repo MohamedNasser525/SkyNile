@@ -26,6 +26,7 @@ builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailS
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<ICreateOffers, CreateOffers>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddTransient<IMailingServices, MailingServices>();
 builder.Services.AddTransient<IFlightSchedulingService, FlightSchedulingService>();

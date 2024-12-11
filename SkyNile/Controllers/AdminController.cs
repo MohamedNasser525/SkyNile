@@ -1,5 +1,6 @@
 using BusinessLogic.Models;
 using DataAccess.Data;
+using Hangfire;
 using DataAccess.Repositories.IRepositories;
 using Mapster;
 using MapsterMapper;
@@ -62,8 +63,20 @@ namespace SkyNile.Controllers
             await _unitOfWork.Flights.AddAsync(flight);
             await _unitOfWork.CompleteAsync();
             _cacheService.RemoveData(cacheKey);
-            return CreatedAtAction(nameof(FlightController.GetFlightById), controllerName: "Flight",
-            routeValues: new { id = flight.Id }, value: flight);
+
+            // Scheduling a delayed job with Hangfire
+            var myData = flight.ArrivalTime - DateTime.Now.AddHours(1);
+            var jobId = BackgroundJob.Schedule(
+                () => _flightScheduler.DeleteFlightTimeScheduleAsync(flight), myData);
+
+
+            return CreatedAtAction(
+            nameof(FlightController.GetFlightById), // Reference method in FlightController
+            controllerName: "Flight",
+            routeValues: new { id = flight.Id },
+            value: flight
+            );
+
         }
 
         [HttpPut(Name = "UpdateFlightInfo")]
