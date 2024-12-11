@@ -1,5 +1,6 @@
 using BusinessLogic.Models;
 using DataAccess.Data;
+using DataAccess.Repositories.IRepositories;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,14 +16,15 @@ namespace SkyNile.Controllers
     [ApiController]
     public class FlightController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ISearchService _flightSearchService;
         private readonly UserManager<User> _userManager;
         private readonly ICacheService _cacheService;
-        public FlightController(ApplicationDbContext db, ISearchService flightSearchService,
+        public FlightController(IUnitOfWork unitOfWork, ISearchService flightSearchService,
         UserManager<User> userManager, ICacheService cacheService)
         {
-            _context = db;
+            _unitOfWork = unitOfWork;
             _flightSearchService = flightSearchService;
             _userManager = userManager;
             _cacheService = cacheService;
@@ -41,7 +43,7 @@ namespace SkyNile.Controllers
             else
             {
                 var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
-                beforeSortList = await _context.Flights.Where(expression).ToListAsync();
+                beforeSortList = await _unitOfWork.Flights.FindAsync(expression);
                 _cacheService.SetData<IEnumerable<Flight>>(cacheKey, beforeSortList);
             }
             foreach (var flight in beforeSortList)
@@ -53,7 +55,7 @@ namespace SkyNile.Controllers
                     flight.UpdatePrisce = true;
                 }
             }
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
             FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
             var sortedDTO = _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
@@ -66,7 +68,7 @@ namespace SkyNile.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> GetFlightById(Guid id)
         {
-            var targetFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == id);
+            var targetFlight = await _unitOfWork.Flights.GetByIdAsync(id);
             if (targetFlight == null)
                 return NotFound("No flight with such information provided");
             //Dynamic Price Change
@@ -75,7 +77,7 @@ namespace SkyNile.Controllers
                 targetFlight.Price *= 1.3;
                 targetFlight.UpdatePrisce = true;
             }
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             return Ok(targetFlight);
         }
     }

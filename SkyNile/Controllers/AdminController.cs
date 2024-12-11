@@ -1,5 +1,6 @@
 using BusinessLogic.Models;
 using DataAccess.Data;
+using DataAccess.Repositories.IRepositories;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,8 @@ namespace SkyNile.Controllers
     public class AdminController : ControllerBase
     {
 
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IFlightSchedulingService _flightScheduler;
@@ -28,9 +30,9 @@ namespace SkyNile.Controllers
         private readonly ICacheService _cacheService;
         public AdminController(ApplicationDbContext context, IMapper mapper,
         UserManager<User> userManager, IFlightSchedulingService flightScheduler, IMailingServices mailingServices,
-        ICacheService cacheService)
+        ICacheService cacheService, IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _flightScheduler = flightScheduler;
@@ -42,11 +44,9 @@ namespace SkyNile.Controllers
         [SwaggerOperation(Summary = "Ensure there is no overlapping flights")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime)
-        {
-            return Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(targetDateTime));
-        }
-
+        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime) => 
+         Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(targetDateTime));
+         
         [HttpPost(Name = "InsertFlight")]
         [SwaggerOperation(Summary = "Insert flight information by an admin.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Request was successfully created.")]
@@ -55,26 +55,15 @@ namespace SkyNile.Controllers
         public async Task<ActionResult> InsertFlight([FromBody] FlightAdminCreateDTO flightDTO)
         {
             string cacheKey = $"FlightSearch_{flightDTO.DepartureLocation}_{flightDTO.ArrivalLocation}";
-            var airplane = await _context.Airplanes.FirstOrDefaultAsync(a => a.Id == flightDTO.AirplaneId);
-            if (airplane == null)
-            {
-                return BadRequest("There is no such airplane with that specified Id.");
-            }
-            if (airplane.Capacity < flightDTO.Seatsnum)
-            {
-                return BadRequest($"Choose available seats count <= {airplane.Capacity}");
-            }
+            var airplane = await _unitOfWork.Airplanes.GetByIdAsync(flightDTO.AirplaneId);
+            if (airplane == null) return BadRequest("There is no such airplane with that specified Id.");
+            if (airplane.Capacity < flightDTO.Seatsnum) return BadRequest($"Choose available seats count <= {airplane.Capacity}");
             var flight = flightDTO.Adapt<Flight>();
-            await _context.Flights.AddAsync(flight);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Flights.AddAsync(flight);
+            await _unitOfWork.CompleteAsync();
             _cacheService.RemoveData(cacheKey);
-            return CreatedAtAction(
-            nameof(FlightController.GetFlightById), // Reference method in FlightController
-            controllerName: "Flight",
-            routeValues: new { id = flight.Id },
-            value: flight
-            );
-
+            return CreatedAtAction(nameof(FlightController.GetFlightById), controllerName: "Flight",
+            routeValues: new { id = flight.Id }, value: flight);
         }
 
         [HttpPut(Name = "UpdateFlightInfo")]
@@ -85,13 +74,10 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateFlight([FromBody] FlightAdminUpdateDTO flightDTO)
         {
-            var currentFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightDTO.Id);
-            if (currentFlight == null)
-            {
-                return NotFound();
-            }
+            var currentFlight = await _unitOfWork.Flights.GetByIdAsync(flightDTO.Id);
+            if (currentFlight == null) return NotFound();
             flightDTO.Adapt(currentFlight);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             string cacheKey = $"FlightSearch_{currentFlight.DepartureLocation}_{currentFlight.ArrivalLocation}";
             _cacheService.RemoveData(cacheKey);
             return NoContent();
@@ -104,22 +90,20 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound, "The desired flight is not found.")]
         public async Task<IActionResult> DeleteFlight(Guid flightId)
         {
-            var flightToDelete = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
-            if (flightToDelete == null)
-            {
-                return NotFound();
-            }
+            var flightToDelete = await _unitOfWork.Flights.GetByIdAsync(flightId);
+            if (flightToDelete == null) return NotFound();
             // Get all users attached to this flight
-            var ticketsToNotify = _context.Tickets.Where(t => t.FlightId == flightId);
-            foreach(var ticket in ticketsToNotify){
+            var ticketsToNotify = await _unitOfWork.Tickets.FindAsync(t => t.FlightId == flightId);
+            foreach (var ticket in ticketsToNotify)
+            {
                 ticket.TicketStatus = TicketStatus.CancelledWithRefund;
                 var userIdToNotify = ticket.UserId;
                 var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userIdToNotify.ToString());
                 var body = await _mailingServices.PrepareFlightCancellationBodyAsync(user, flightToDelete, ticket);
-                await _mailingServices.SendMailAsync(user.Email, "Flight Cancellation Notice", body,null);
+                await _mailingServices.SendMailAsync(user.Email, "Flight Cancellation Notice", body, null);
             }
             flightToDelete.FlightStatus = FlightStatus.Cancelled;
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
 
@@ -135,14 +119,10 @@ namespace SkyNile.Controllers
             // Check flight exists
             // Search for Crews entity based on conditions 
             // return the list
-            var crewPossibleFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
-            if (crewPossibleFlight == null)
-            {
-                return NotFound();
-            }
+            var crewPossibleFlight = await _unitOfWork.Flights.GetByIdAsync(flightId);
+            if (crewPossibleFlight == null) return NotFound();
             var allCrewMembers = await _userManager.GetUsersInRoleAsync("Crew");
-            var departureTime = crewPossibleFlight.DepartureTime;
-            var arrivalTime = crewPossibleFlight.ArrivalTime;
+            DateTime departureTime = crewPossibleFlight.DepartureTime, arrivalTime = crewPossibleFlight.ArrivalTime;
             var twoDays = new TimeSpan(48, 0, 0);
             var AvailableCrewMembers = allCrewMembers.Where(c =>
             {
@@ -172,13 +152,10 @@ namespace SkyNile.Controllers
         public async Task<IActionResult> AssignCrewFlight([FromRoute] Guid flightId, [FromBody] Guid id)
         {
             var crewMember = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
-            var crewPossibleFlight = await _context.Flights.FirstOrDefaultAsync(f => f.Id == flightId);
-            if (crewPossibleFlight == null || crewMember == null)
-            {
-                return NotFound();
-            }
+            var crewPossibleFlight = await _unitOfWork.Flights.GetByIdAsync(flightId);
+            if (crewPossibleFlight == null || crewMember == null) return NotFound();
             crewMember.Flight.Add(crewPossibleFlight);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             return Created();
         }
 
@@ -192,17 +169,13 @@ namespace SkyNile.Controllers
         public async Task<IActionResult> CancelCrewFromFlight(Guid UserID, Guid FlightID)
         {
             var increw = await _userManager.FindByIdAsync(UserID.ToString());
-            if (increw == null)
-                return BadRequest("User id invaild");
-            var flight = await _context.Flights.FindAsync(FlightID);
-            if (flight == null)
-                return BadRequest("Flight id invaild");
-            if (!await _userManager.IsInRoleAsync(increw, "Crew"))
-                return BadRequest("User not in crew");
-            if (!increw.Flight.Any(x => x.Id == FlightID))
-                return BadRequest("User in crew doesn't have a Flight yet");
+            if (increw == null) return BadRequest("User id invaild");
+            var flight = await _unitOfWork.Flights.GetByIdAsync(FlightID);
+            if (flight == null) return BadRequest("Flight id invaild");
+            if (!await _userManager.IsInRoleAsync(increw, "Crew")) return BadRequest("User not in crew");
+            if (!increw.Flight.Any(x => x.Id == FlightID)) return BadRequest("User in crew doesn't have a Flight yet");
             increw.Flight.Remove(flight);
-            _context.SaveChanges();
+            await _unitOfWork.CompleteAsync();
             return Ok("cancel crow on flight");
         }
     }

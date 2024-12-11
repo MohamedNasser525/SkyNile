@@ -23,15 +23,13 @@ namespace SkyNile.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly ApplicationDbContext _context;
         private readonly IAuthService _authService;
         private readonly IMailingServices _mailingService;
         private readonly SignInManager<User> _signinmanager;
 
-        public AuthenticationController(SignInManager<User> signinmanager, IMailingServices mailingService, IAuthService authService, UserManager<User> userManager, ApplicationDbContext context)
+        public AuthenticationController(SignInManager<User> signinmanager, IMailingServices mailingService, IAuthService authService, UserManager<User> userManager)
         {
             _userManager = userManager;
-            _context = context;
             _authService = authService;
             _mailingService = mailingService;
             _signinmanager = signinmanager;

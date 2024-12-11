@@ -31,8 +31,8 @@ namespace BusinessLogic.Models
         
         public Guid AirplaneId { get; set; }
         public virtual Airplane Airplane { get; set; } 
-        public virtual List<User> User { get; set; }
-        public virtual List<Ticket> Tickets { get; set;}
+        public virtual List<User> User { get; set; } = new List<User>();
+        public virtual List<Ticket> Tickets { get; set;} = new List<Ticket>();
     }
 
 }

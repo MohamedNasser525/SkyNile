@@ -7,7 +7,7 @@
         public string Model { get; set; }
         public int Capacity { get; set; }
         public string Airline { get; set; }
-        public virtual List<Flight> Flights { get; set; }
+        public virtual List<Flight> Flights { get; set; } = new List<Flight>();
     }
 
 

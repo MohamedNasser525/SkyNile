@@ -17,8 +17,8 @@ namespace BusinessLogic.Models
         public string PassportNumber { get; set; }
         public string? Image { get; set; }
         public FlightPreference FlightPreference { get; set; }
-        public virtual List<Ticket>? Ticket { get; set; }
-        public virtual List<Flight>? Flight { get; set; }
+        public virtual List<Ticket>? Ticket { get; set; } = new List<Ticket>();
+        public virtual List<Flight>? Flight { get; set; } = new List<Flight>();
     }
 
 

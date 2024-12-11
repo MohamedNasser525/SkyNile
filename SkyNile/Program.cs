@@ -1,5 +1,7 @@
 using BusinessLogic.Models;
 using DataAccess.Data;
+using DataAccess.Repositories;
+using DataAccess.Repositories.IRepositories;
 using Hangfire;
 using Mapster;
 using MapsterMapper;
@@ -105,6 +107,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddMemoryCache(); // This Line is called automatically if its MVC or Razor, But its a MUST in APIs
 builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
