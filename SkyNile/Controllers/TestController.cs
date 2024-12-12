@@ -15,7 +15,7 @@ namespace SkyNile.Controllers
         }
 
 
-       // [Authorize(Roles = "Crew")]
+        [Authorize]
         [HttpGet("AuthOK")]
         public async Task<IActionResult> AuthOk()
         {

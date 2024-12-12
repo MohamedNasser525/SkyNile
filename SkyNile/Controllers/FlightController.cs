@@ -35,7 +35,9 @@ namespace SkyNile.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
-            string cacheKey = $"FlightSearch_{flightCriteriaDTO.DepartureLocation}_{flightCriteriaDTO.ArrivalLocation}";
+            // Key: 
+            // Search for the key
+            string cacheKey = $"FlightSearch_{flightCriteriaDTO.DepartureLocation}_{flightCriteriaDTO.ArrivalLocation}_Date";
             var cachedFlights = _cacheService.GetData<IEnumerable<Flight>>(cacheKey);
             IEnumerable<Flight> beforeSortList;
             if (cachedFlights is not null)
