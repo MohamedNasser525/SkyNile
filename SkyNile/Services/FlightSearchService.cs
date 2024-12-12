@@ -11,10 +11,11 @@ public class FlightSearchService : ISearchService
 {
     // UserPreferences, Flights
 
-    private double NormalizePrice(double value, double min, double max) => min == max? 1 : (value - min) / (max - min);
-    private double NormalizeDuration(TimeSpan value, TimeSpan min, TimeSpan max) {
-        double valueTicks = value.Ticks, minTicks = min.Ticks, maxTicks = max.Ticks; 
-        return min == max? 1 : (valueTicks - minTicks) / (maxTicks - minTicks);
+    private double NormalizePrice(double value, double min, double max) => min == max ? 1 : (value - min) / (max - min);
+    private double NormalizeDuration(TimeSpan value, TimeSpan min, TimeSpan max)
+    {
+        double valueTicks = value.Ticks, minTicks = min.Ticks, maxTicks = max.Ticks;
+        return min == max ? 1 : (valueTicks - minTicks) / (maxTicks - minTicks);
     }
 
     /// <summary>
@@ -32,10 +33,11 @@ public class FlightSearchService : ISearchService
     {
         (double priceWeight, double durationWeight) = FlightPreferenceWeights.GetWeights(preference);
         double minPrice = flights.Min(f => f.Price), maxPrice = flights.Max(f => f.Price);
-        TimeSpan minDuration = flights.Min(f => f.ArrivalTime - f.DepartureTime), maxDuration = 
+        TimeSpan minDuration = flights.Min(f => f.ArrivalTime - f.DepartureTime), maxDuration =
         flights.Max(f => f.ArrivalTime - f.DepartureTime);
 
-        foreach (var flight in flights){
+        foreach (var flight in flights)
+        {
             var normalizedPrice = NormalizePrice(flight.Price, minPrice, maxPrice);
             var normalizedDuration = NormalizeDuration(flight.ArrivalTime - flight.DepartureTime, minDuration, maxDuration);
             flight.Score = priceWeight * normalizedPrice + durationWeight * normalizedDuration;
@@ -60,17 +62,27 @@ public class FlightSearchService : ISearchService
             if (entityProperty == null) continue; // Skip if the entity does not have this property
 
             var member = Expression.Property(parameter, entityProperty);
+            // Build the condition based on the property type
+            Expression condition;
 
-            // Convert the value to the correct type and create a constant expression
-            var constant = Expression.Constant(value, entityProperty.PropertyType);
+            if (property.PropertyType == typeof(string))
+            {
+                // For strings, use String.Contains (e.g., 'x.PropertyName.Contains(value)')
+                var containsMethod = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                var constant = Expression.Constant(value, typeof(string));
+                condition = Expression.Call(member, containsMethod!, constant);
+            }
+            else
+            {
+                // For non-string properties, use equality (e.g., 'x.PropertyName == value')
+                var constant = Expression.Constant(value, property.PropertyType);
+                condition = Expression.Equal(member, constant);
+            }
 
-            // Create an equality expression (e.g., x.Property == value)
-            var equality = Expression.Equal(member, constant);
-
-            // Combine with previous expressions using Expression.AndAlso
+            // Combine this condition with the existing conditions
             combinedExpression = combinedExpression == null
-                ? equality
-                : Expression.AndAlso(combinedExpression, equality);
+                ? condition
+                : Expression.AndAlso(combinedExpression, condition);
         }
 
         // If no properties were filled, return a default true expression
