@@ -22,8 +22,8 @@ public class MailingServices : IMailingServices
         var mailBody = await str.ReadToEndAsync();
         str.Close();
         var body = mailBody.Replace("{TicketId}", ticket.Id.ToString()).Replace("{FlightId}", flight.Id.ToString()).
-                    Replace("{DepartureLocation}", flight.DepartureLocation).
-                    Replace("{ArrivalLocation}", flight.ArrivalLocation).
+                    Replace("{DepartureLocation}", flight.DepartureCountry).
+                    Replace("{ArrivalLocation}", flight.ArrivalCountry).
                     Replace("{DepartureTime}", flight.DepartureTime.ToString()).
                     Replace("{ArrivalTime}", flight.ArrivalTime.ToString()).
                     Replace("{CustomerName}", user.UserName);
@@ -37,8 +37,8 @@ public class MailingServices : IMailingServices
         var mailBody = await str.ReadToEndAsync();
         str.Close();
         var body = mailBody.Replace("{TicketId}", ticket.Id.ToString()).Replace("{FlightId}", flight.Id.ToString()).
-                    Replace("{DepartureLocation}", flight.DepartureLocation).
-                    Replace("{ArrivalLocation}", flight.ArrivalLocation).
+                    Replace("{DepartureLocation}", flight.DepartureCountry).
+                    Replace("{ArrivalLocation}", flight.ArrivalCountry).
                     Replace("{DepartureTime}", flight.DepartureTime.ToString()).
                     Replace("{ArrivalTime}", flight.ArrivalTime.ToString()).
                     Replace("{PassengerCount}", ticket.TicketCount.ToString()).

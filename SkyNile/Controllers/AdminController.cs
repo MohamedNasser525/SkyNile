@@ -91,7 +91,7 @@ namespace SkyNile.Controllers
             if (currentFlight == null) return NotFound();
             flightDTO.Adapt(currentFlight);
             await _unitOfWork.CompleteAsync();
-            string cacheKey = $"FlightSearch_{currentFlight.DepartureLocation}_{currentFlight.ArrivalLocation}";
+            string cacheKey = $"FlightSearch_{currentFlight.DepartureCountry}_{currentFlight.ArrivalCountry}";
             _cacheService.RemoveData(cacheKey);
             return NoContent();
         }

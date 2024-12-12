@@ -9,12 +9,13 @@
 6. [Installation Guide](#installation-guide)
 7. [API Endpoints](#api-endpoints)
 8. [Future Enhancements](#future-enhancements)
-9. [Contact](#contact)
+9. [Contributors](#Contributors)
+10. [Contact](#contact)
 
 ---
 
 ## Project Overview
-SkyNile Flight Reservation System is a comprehensive web application designed to manage airline operations for SkyNile Airlines. This system facilitates flight booking, scheduling, and management for three main roles:
+SkyNile Flight Reservation System is a comprehensive **RESTful Web API** designed to manage airline operations for SkyNile Airlines. This system facilitates flight booking, scheduling, and management for three main roles:
 
 - **Admin**: Manages flights, schedules crew, and oversees system operations.
 - **Customer**: Searches, books, updates, or cancels flight reservations.
@@ -27,16 +28,16 @@ The project follows industry-standard practices for scalability, maintainability
 ## Features
 
 ### Admin Features
-- Perform CRUD operations on flights.
+- Perform **CRUD** operations on flights.
 - Assign available crew members to flights using an intelligent scheduling algorithm.
 - Suggest alternative dates for new flights if conflicts arise.
 
 ### Customer Features
 - Dynamic flight search leveraging reflection to detect incomplete inputs.
-- Advanced sorting algorithms to rank flights by user-defined preferences (e.g., fastest, cheapest, or balanced).
+- Advanced sorting algorithms utilizes **weight scoring equation** to rank flights by user-defined preferences (e.g., fastest, cheapest, or balanced).
 - Book, update, or cancel flight reservations.
 - Automated refunds for canceled flights.
-- Receive email notifications for booking confirmation, flight cancellations, and 24-hour departure reminders.
+- Receive email notifications for booking confirmation, flight cancellations, and **24-hour departure reminders**.
 - Dynamic pricing based on flight load.
 
 ### Crew Member Features
@@ -79,16 +80,15 @@ The application follows a **3-tier architecture**:
 ### Prerequisites
 - Install [.NET SDK 8](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Install [SQL Server](https://www.microsoft.com/en-us/sql-server)
-- Set up an [Azure account](https://azure.microsoft.com/)
 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/SkyNile-Flight-Reservation-System.git
+   git clone https://github.com/MohamedNasser525/SkyNile.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd SkyNile-Flight-Reservation-System
+   cd SkyNile
    ```
 3. Set up the database:
    - Update the connection string in `appsettings.json` for Azure SQL Server.
@@ -105,8 +105,7 @@ The application follows a **3-tier architecture**:
    dotnet run
    ```
 6. Access Swagger for API documentation:
-   - Navigate to `http://localhost:5000/swagger` in your browser.
-
+   - Navigate to `http://localhost:{Your Local Host Number}/swagger` in your browser.
 ---
 
 ## API Endpoints
@@ -129,14 +128,15 @@ The application follows a **3-tier architecture**:
 ---
 
 ## Future Enhancements
-- Implement machine learning for more accurate flight recommendations.
-- Add multi-currency support for international customers.
-- Introduce a mobile-friendly frontend for broader accessibility.
-
+- Integration with Friendly UI with Frontend development
 ---
-
+## Contributors
+- **Mohamed Nasser**
+- **Mohamed Walid Mohamed**
+---
 ## Contact
-Feel free to reach out for questions or collaborations:
-- **Email**: yourname@example.com
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- **GitHub**: [Your GitHub Profile](https://github.com/yourusername)
+Feel free to reach out for questions, collaborations Or business Inquiries:
+- **Mohamed Nasser Email**: yourname@example.com
+- **Mohamed Walid Emails**: Moh.Walid2002@gmail.com
+- **Mohamed Nasser Linkedin**: [Profile](https://www.linkedin.com/in/mohamednasser101/)
+- **Mohamed Walid Linkedin**: [Profile](https://www.linkedin.com/in/mohamed-walid-317b281b9/)

@@ -51,7 +51,7 @@ namespace SkyNile.Controllers
                     flights.Add(f);
                 }
             }
-            return Ok(flights.Select(x => new { x.DepartureTime, x.DepartureLocation, x.ArrivalTime, x.ArrivalLocation }).OrderBy(x => x.DepartureTime));
+            return Ok(flights.Select(x => new { x.DepartureTime, x.DepartureCountry, x.ArrivalTime, x.ArrivalCountry }).OrderBy(x => x.DepartureTime));
         }
     }
 }
