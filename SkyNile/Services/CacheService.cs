@@ -10,6 +10,7 @@ public class CacheService : ICacheService
     public CacheService(IMemoryCache cache)
     {
         _cache = cache;
+        
     }
 
     public T? GetData<T>(string key)

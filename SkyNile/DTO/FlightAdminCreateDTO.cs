@@ -7,14 +7,20 @@ public class FlightAdminCreateDTO
     [Display(Name = "Departure Time"), Required(ErrorMessage = "Departure Time is required."), DateRange(90), DataType(DataType.DateTime)]
     public DateTime DepartureTime { get; set; }
 
-    [Display(Name = "Departure Location"), Required(ErrorMessage = "Departure Location is required.")]
-    public string DepartureLocation { get; set; }
-
     [Display(Name = "Arrival Time"), Required(ErrorMessage = "Estimated Arrival Time is required.")]
     public DateTime ArrivalTime { get; set; }
 
-    [Display(Name = "Arrival Location"), Required(ErrorMessage = "Arrival Location is required.")]
-    public string ArrivalLocation { get; set; }
+    [Display(Name = "Departure Country"), Required(ErrorMessage = "Departure Country is required.")]
+    public string DepartureCountry { get; set; } = "";
+
+    [Display(Name = "Departure Airport"), Required(ErrorMessage = "Departure Country is required.")]
+    public string DepartureAirport { get; set; } = "";
+
+    [Display(Name = "Arrival Country")]
+    public string? ArrivalCountry { get; set; }
+
+    [Display(Name = "Arrival Airport")]
+    public string? ArrivalAirport { get; set; }
 
     [Display(Name = "Available Seats number"), Required(ErrorMessage = "Seats number must be specified")]
     public int Seatsnum { get; set; }

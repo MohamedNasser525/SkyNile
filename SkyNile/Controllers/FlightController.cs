@@ -35,15 +35,18 @@ namespace SkyNile.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO)
         {
-            // Key: 
-            // Search for the key
-            string cacheKey = $"FlightSearch_{flightCriteriaDTO.DepartureLocation}_{flightCriteriaDTO.ArrivalLocation}_Date";
+
+            flightCriteriaDTO.ArrivalCountry = flightCriteriaDTO.ArrivalCountry ?? "WORLD";
+            flightCriteriaDTO.ArrivalAirport = flightCriteriaDTO.ArrivalAirport ?? "WORLD";
+            string cacheKey = $"FlightSearch_{flightCriteriaDTO.DepartureCountry}_{flightCriteriaDTO.DepartureAirport}" +
+            $"_{flightCriteriaDTO.ArrivalCountry}_{flightCriteriaDTO.DepartureAirport}_{flightCriteriaDTO.DepartureTime.Date}";
             var cachedFlights = _cacheService.GetData<IEnumerable<Flight>>(cacheKey);
             IEnumerable<Flight> beforeSortList;
             if (cachedFlights is not null)
                 beforeSortList = cachedFlights;
             else
             {
+                flightCriteriaDTO.ArrivalCountry = null; flightCriteriaDTO.ArrivalAirport = null;
                 var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
                 beforeSortList = await _unitOfWork.Flights.FindAsync(expression);
                 _cacheService.SetData<IEnumerable<Flight>>(cacheKey, beforeSortList);

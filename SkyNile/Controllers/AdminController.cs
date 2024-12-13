@@ -45,9 +45,9 @@ namespace SkyNile.Controllers
         [SwaggerOperation(Summary = "Ensure there is no overlapping flights")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime) => 
+        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime) =>
          Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(targetDateTime));
-         
+
         [HttpPost(Name = "InsertFlight")]
         [SwaggerOperation(Summary = "Insert flight information by an admin.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Request was successfully created.")]
@@ -55,7 +55,8 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> InsertFlight([FromBody] FlightAdminCreateDTO flightDTO)
         {
-            string cacheKey = $"FlightSearch_{flightDTO.DepartureLocation}_{flightDTO.ArrivalLocation}";
+            string cacheKey = $"FlightSearch_{flightDTO.DepartureCountry}_{flightDTO.DepartureAirport}" +
+            $"_{flightDTO.ArrivalCountry}_{flightDTO.DepartureAirport}_{flightDTO.DepartureTime.Date}";
             var airplane = await _unitOfWork.Airplanes.GetByIdAsync(flightDTO.AirplaneId);
             if (airplane == null) return BadRequest("There is no such airplane with that specified Id.");
             if (airplane.Capacity < flightDTO.Seatsnum) return BadRequest($"Choose available seats count <= {airplane.Capacity}");
@@ -63,13 +64,10 @@ namespace SkyNile.Controllers
             await _unitOfWork.Flights.AddAsync(flight);
             await _unitOfWork.CompleteAsync();
             _cacheService.RemoveData(cacheKey);
-
             // Scheduling a delayed job with Hangfire
             var myData = flight.ArrivalTime - DateTime.Now.AddHours(1);
             var jobId = BackgroundJob.Schedule(
                 () => _flightScheduler.DeleteFlightTimeScheduleAsync(flight), myData);
-
-
             return CreatedAtAction(
             nameof(FlightController.GetFlightById), // Reference method in FlightController
             controllerName: "Flight",
@@ -89,9 +87,11 @@ namespace SkyNile.Controllers
         {
             var currentFlight = await _unitOfWork.Flights.GetByIdAsync(flightDTO.Id);
             if (currentFlight == null) return NotFound();
+            DateTime oldFlightDepartureDateCached = currentFlight.DepartureTime.Date;
             flightDTO.Adapt(currentFlight);
             await _unitOfWork.CompleteAsync();
-            string cacheKey = $"FlightSearch_{currentFlight.DepartureCountry}_{currentFlight.ArrivalCountry}";
+            string cacheKey = $"FlightSearch_{currentFlight.DepartureCountry}_{currentFlight.DepartureAirport}" +
+            $"_{currentFlight.ArrivalCountry}_{currentFlight.DepartureAirport}_{oldFlightDepartureDateCached}";
             _cacheService.RemoveData(cacheKey);
             return NoContent();
         }
@@ -117,6 +117,9 @@ namespace SkyNile.Controllers
             }
             flightToDelete.FlightStatus = FlightStatus.Cancelled;
             await _unitOfWork.CompleteAsync();
+            string cacheKey = $"FlightSearch_{flightToDelete.DepartureCountry}_{flightToDelete.DepartureAirport}" +
+            $"_{flightToDelete.ArrivalCountry}_{flightToDelete.DepartureAirport}_{flightToDelete.DepartureTime.Date}";
+            _cacheService.RemoveData(cacheKey);
             return Ok();
         }
 
@@ -155,7 +158,6 @@ namespace SkyNile.Controllers
             return Ok(AvailableCrewMembers);
         }
 
-
         [HttpPost("{flightId:guid}", Name = "AssignCrewFlight")]
         [SwaggerOperation(Summary = "Assign Crew member to a current flight")]
         [SwaggerResponse(StatusCodes.Status201Created, "Request was successfully Created.")]
@@ -171,8 +173,6 @@ namespace SkyNile.Controllers
             await _unitOfWork.CompleteAsync();
             return Created();
         }
-
-
 
         [HttpDelete]
         [SwaggerOperation(Summary = "Remove crew member from his Flight")]
