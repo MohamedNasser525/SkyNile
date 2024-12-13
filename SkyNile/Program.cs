@@ -109,6 +109,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddMemoryCache(); // This Line is called automatically if its MVC or Razor, But its a MUST in APIs
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IFlightServices, FlightServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -29,9 +29,11 @@ namespace SkyNile.Controllers
         private readonly IFlightSchedulingService _flightScheduler;
         private readonly IMailingServices _mailingServices;
         private readonly ICacheService _cacheService;
+        private readonly IFlightServices _flightService;
+
         public AdminController(ApplicationDbContext context, IMapper mapper,
         UserManager<User> userManager, IFlightSchedulingService flightScheduler, IMailingServices mailingServices,
-        ICacheService cacheService, IUnitOfWork unitOfWork)
+        ICacheService cacheService, IUnitOfWork unitOfWork, IFlightServices flightService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -39,6 +41,7 @@ namespace SkyNile.Controllers
             _flightScheduler = flightScheduler;
             _mailingServices = mailingServices;
             _cacheService = cacheService;
+            _flightService = flightService;
         }
 
         [HttpGet("GetAvailableFlightSchedule/{targetDateTime:DateTime}")]
@@ -107,22 +110,13 @@ namespace SkyNile.Controllers
             if (flightToDelete == null) return NotFound();
             // Get all users attached to this flight
             var ticketsToNotify = await _unitOfWork.Tickets.FindAsync(t => t.FlightId == flightId);
-            foreach (var ticket in ticketsToNotify)
-            {
-                ticket.TicketStatus = TicketStatus.CancelledWithRefund;
-                var userIdToNotify = ticket.UserId;
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userIdToNotify.ToString());
-                var body = await _mailingServices.PrepareFlightCancellationBodyAsync(user, flightToDelete, ticket);
-                await _mailingServices.SendMailAsync(user.Email, "Flight Cancellation Notice", body, null);
-            }
-            flightToDelete.FlightStatus = FlightStatus.Cancelled;
+            await _flightService.NotifyDeletedFlightSubscribersAsync(flightToDelete, ticketsToNotify);
             await _unitOfWork.CompleteAsync();
             string cacheKey = $"FlightSearch_{flightToDelete.DepartureCountry}_{flightToDelete.DepartureAirport}" +
             $"_{flightToDelete.ArrivalCountry}_{flightToDelete.DepartureAirport}_{flightToDelete.DepartureTime.Date}";
             _cacheService.RemoveData(cacheKey);
             return Ok();
         }
-
 
         [HttpGet("GetAvailableCrew/{flightId:guid}")]
         [SwaggerOperation(Summary = "Get available Crew members list ready for flying")]

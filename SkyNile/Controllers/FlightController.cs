@@ -49,6 +49,7 @@ namespace SkyNile.Controllers
                 flightCriteriaDTO.ArrivalCountry = null; flightCriteriaDTO.ArrivalAirport = null;
                 var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
                 beforeSortList = await _unitOfWork.Flights.FindAsync(expression);
+                beforeSortList = beforeSortList.Where(f => f.FlightStatus == FlightStatus.Scheduled);;
                 _cacheService.SetData<IEnumerable<Flight>>(cacheKey, beforeSortList);
             }
             foreach (var flight in beforeSortList)
