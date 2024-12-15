@@ -26,8 +26,8 @@ public class FlightServices : IFlightServices
             ticket.TicketStatus = TicketStatus.CancelledWithRefund;
             var userIdToNotify = ticket.UserId;
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userIdToNotify.ToString());
-            var body = await _mailingServices.PrepareFlightCancellationBodyAsync(user, flightToDelete, ticket);
-            await _mailingServices.SendMailAsync(user.Email, "Flight Cancellation Notice", body, null);
+            var body = await _mailingServices.PrepareFlightCancellationBodyAsync(user!, flightToDelete, ticket);
+            await _mailingServices.SendMailAsync(user!.Email!, "Flight Cancellation Notice", body, null);
         }
         flightToDelete.FlightStatus = FlightStatus.Cancelled;
         await _unitOfWork.CompleteAsync();

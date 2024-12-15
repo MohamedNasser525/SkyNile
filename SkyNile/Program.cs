@@ -7,6 +7,7 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -19,6 +20,7 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
@@ -31,7 +33,16 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddTransient<IMailingServices, MailingServices>();
 builder.Services.AddTransient<IFlightSchedulingService, FlightSchedulingService>();
 builder.Services.AddTransient<ISearchService, FlightSearchService>();
-
+builder.Services.AddRateLimiter(opt => {
+    opt.AddTokenBucketLimiter("TokenBucketLimiter", opt2 => {
+        opt2.TokenLimit = 5;
+        opt2.QueueLimit = 2;
+        opt2.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt2.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
+        opt2.TokensPerPeriod = 3;
+        opt2.AutoReplenishment = true;
+    }).RejectionStatusCode = 429;
+});
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -118,7 +129,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
+app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
