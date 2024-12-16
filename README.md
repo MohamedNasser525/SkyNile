@@ -1,5 +1,5 @@
 # SkyNile Flight Reservation System
-![skynile](https://github.com/user-attachments/assets/9bda807f-3740-4708-b616-a5a05476af0f)
+<img src="[image-path](https://github.com/user-attachments/assets/9bda807f-3740-4708-b616-a5a05476af0f)" width="300" height="200">
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
