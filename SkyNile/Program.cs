@@ -33,8 +33,21 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddTransient<IMailingServices, MailingServices>();
 builder.Services.AddTransient<IFlightSchedulingService, FlightSchedulingService>();
 builder.Services.AddTransient<ISearchService, FlightSearchService>();
-builder.Services.AddRateLimiter(opt => {
-    opt.AddTokenBucketLimiter("TokenBucketLimiter", opt2 => {
+builder.Services.AddRateLimiter(opt =>
+{
+
+    opt.AddPolicy("TokenBucketLimiter", httpContext => RateLimitPartition.GetTokenBucketLimiter(
+        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(), factory: partition => new TokenBucketRateLimiterOptions
+        {
+            TokenLimit = 5,
+            QueueLimit = 2,
+            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+            ReplenishmentPeriod = TimeSpan.FromSeconds(10),
+            TokensPerPeriod = 3,
+            AutoReplenishment = true,
+        }));
+    opt.AddTokenBucketLimiter("TokenBucketLimiter", opt2 =>
+    {
         opt2.TokenLimit = 5;
         opt2.QueueLimit = 2;
         opt2.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
@@ -119,7 +132,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddMemoryCache(); // This Line is called automatically if its MVC or Razor, But its a MUST in APIs
 builder.Services.AddScoped<ICacheService, CacheService>();
-builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IFlightServices, FlightServices>();
 var app = builder.Build();
 
