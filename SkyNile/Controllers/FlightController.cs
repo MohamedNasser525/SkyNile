@@ -43,6 +43,7 @@ namespace SkyNile.Controllers
         [HttpGet("GetFlights/{userId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO,
         int pageNumber, int pageSize)
         {
@@ -84,6 +85,7 @@ namespace SkyNile.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         public async Task<ActionResult> GetFlightById(Guid id)
         {
             var targetFlight = await _unitOfWork.Flights.GetByIdAsync(id);
