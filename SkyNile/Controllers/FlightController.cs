@@ -109,7 +109,7 @@ namespace SkyNile.Controllers
 
 
         [HttpPost(Name = "InsertFlight")]
-        [SwaggerOperation(Summary = "Insert flight information by an admin.")]
+        [SwaggerOperation(Summary = "Admin Insert flight information.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Request was successfully created.")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
@@ -135,11 +135,10 @@ namespace SkyNile.Controllers
             routeValues: new { id = flight.Id },
             value: flight
             );
-
         }
 
         [HttpPut(Name = "UpdateFlightInfo")]
-        [SwaggerOperation(Summary = "Update flight information by an admin.")]
+        [SwaggerOperation(Summary = "Admin Update flight information.")]
         [SwaggerResponse(StatusCodes.Status204NoContent, "Request was successfully Updated.")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "The flight is not found")]
@@ -159,7 +158,7 @@ namespace SkyNile.Controllers
         }
 
         [HttpPut("DeleteFlight/{flightId:guid}", Name = "DeleteFlight")]
-        [SwaggerOperation(Summary = "Cancel flight & Notify Subscribers to this flight")]
+        [SwaggerOperation(Summary = "Admin Cancel flight & Notify Subscribers to this flight by Mail")]
         [SwaggerResponse(StatusCodes.Status200OK, "Your flight is deleted successfully.")]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "The desired flight is not found.")]

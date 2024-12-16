@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Models;
 using DataAccess.Data;
+using DataAccess.Repositories.IRepositories;
 using Hangfire;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,20 +19,26 @@ namespace SkyNile.Controllers
     public class PassengerController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly ApplicationDbContext _context;
         private readonly IMailingServices? _mailingServices;
         private readonly ICreateOffers _ICreateOffers;
-        public PassengerController(ICreateOffers createOffers,UserManager<User> userManager, ApplicationDbContext context, IMailingServices mailingServices)
+        private readonly IUnitOfWork _unitOfWork;
+        public PassengerController(ICreateOffers createOffers,UserManager<User> userManager, ApplicationDbContext context, 
+        IMailingServices mailingServices, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
-            _context = context;
             _mailingServices = mailingServices;
             _ICreateOffers = createOffers;
+            _unitOfWork = unitOfWork;
         }
         [HttpGet("GetUserInfo/{userId:guid}")]
-        public async Task<IActionResult> GetUserInfo([FromRoute] Guid userId){
-            return Ok(await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()));
-        }
+        public async Task<IActionResult> GetUserInfo([FromRoute] Guid userId) =>
+            Ok(await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()));
+        
+
+        [HttpGet("GetUserBooking/{userId:guid}")]
+        public async Task<IActionResult> GetUserBookedTickets([FromRoute] Guid userId, [FromBody] TicketStatus status) =>
+            Ok(await _unitOfWork.Tickets.FindAsync(t => t.UserId == userId && t.TicketStatus == status));
+            
         [HttpPost("booking")]
         [SwaggerOperation(Summary = "For passenger to book ticket")]
         [SwaggerResponse(StatusCodes.Status200OK, "Booking Done")]
@@ -44,7 +51,7 @@ namespace SkyNile.Controllers
                 return BadRequest("user id invaild");
             }
 
-            var flight = await _context.Flights.FindAsync(FlightID);
+            var flight = await _unitOfWork.Flights.GetByIdAsync(FlightID);
             if (flight == null)
             {
                 return BadRequest("flight id invaild");
@@ -78,11 +85,11 @@ namespace SkyNile.Controllers
                     Discount = _ICreateOffers.GenerateRandomDouble(),
                     Ticket = ticket,
                 };
-                await _context.Offers.AddAsync(offer);
+                await _unitOfWork.Offers.AddAsync(offer);
             }
             flight.Seatsnum -= 1;
-            _context.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Tickets.AddAsync(ticket);
+            await _unitOfWork.CompleteAsync();
             string bodyForConfirm = await _mailingServices.PrepareBookingConfirmationBodyAsync(user, flight, ticket);
             await _mailingServices.SendMailAsync(user.Email, "Booking Confirmation", bodyForConfirm);
             string bodyForRemainder = await _mailingServices.PrepareBookingRemainderBodyAsync(user, flight, ticket);
@@ -102,7 +109,7 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateBookingDetails(Guid UserID, Guid TicketID, int TicketCount)
         {
-            var t = await _context.Tickets.Include(x => x.Flight).SingleOrDefaultAsync(x => x.Id == TicketID);
+            var t = await _unitOfWork.Tickets.GetByIdAsync(TicketID);
             if (t == null)
                 return BadRequest("Ticket not found");
             if (t.UserId != UserID)
@@ -110,7 +117,7 @@ namespace SkyNile.Controllers
             t.TicketCount = TicketCount;
             t.TotalPrice = TicketCount * t.Flight.Price;
 
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             return Ok("updating succeed");
         }
 
@@ -120,14 +127,14 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CancelBooking(Guid UserID, Guid TicketID)
         {
-            var t = await _context.Tickets.FindAsync(TicketID);
+            var t = await _unitOfWork.Tickets.GetByIdAsync(TicketID);
             if (t == null)
                 return BadRequest("Ticket not found");
             if (t.UserId != UserID)
                 return BadRequest("U can't cancel this ticket");
             t.Flight.Seatsnum += 1;
-            _context.Tickets.Remove(t);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Tickets.Delete(t);
+            await _unitOfWork.CompleteAsync();
             return Ok("Booking Canceled");
         }
 

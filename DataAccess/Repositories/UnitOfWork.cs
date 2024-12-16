@@ -12,6 +12,7 @@ public class UnitOfWork : IUnitOfWork
     public IBaseRepository<Flight> Flights { get; private set; }
     public IBaseRepository<Ticket> Tickets { get; private set; }
     public IBaseRepository<Airplane> Airplanes { get; private set; }
+    public IBaseRepository<Offer> Offers { get; }
     
     public UnitOfWork(ApplicationDbContext context)
     {

@@ -9,6 +9,6 @@ public interface IUnitOfWork : IDisposable
     public IBaseRepository<Flight> Flights { get; }
     public IBaseRepository<Ticket> Tickets { get; }
     public IBaseRepository<Airplane> Airplanes { get; }
-
+    public IBaseRepository<Offer> Offers { get; }
     public Task<int> CompleteAsync();
 }
