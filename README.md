@@ -1,4 +1,5 @@
 # SkyNile Flight Reservation System
+![Alt Text](IMG\skynile.png)
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
