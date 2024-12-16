@@ -36,7 +36,7 @@ namespace SkyNile.Controllers
         [SwaggerOperation(Summary = "For passenger to book ticket")]
         [SwaggerResponse(StatusCodes.Status200OK, "Booking Done")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> booking(Guid UserID, Guid FlightID, int TicketCount)
+        public async Task<IActionResult> BookFlight(Guid UserID, Guid FlightID, int TicketCount)
         {
             var user = await _userManager.FindByIdAsync(UserID.ToString());
             if (user == null)
@@ -100,7 +100,7 @@ namespace SkyNile.Controllers
         [SwaggerOperation(Summary = "For passenger to update ticket's seat count")]
         [SwaggerResponse(StatusCodes.Status200OK)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> updatebooking(Guid UserID, Guid TicketID, int TicketCount)
+        public async Task<IActionResult> UpdateBookingDetails(Guid UserID, Guid TicketID, int TicketCount)
         {
             var t = await _context.Tickets.Include(x => x.Flight).SingleOrDefaultAsync(x => x.Id == TicketID);
             if (t == null)
@@ -118,7 +118,7 @@ namespace SkyNile.Controllers
         [SwaggerOperation(Summary = "cancel booking")]
         [SwaggerResponse(StatusCodes.Status200OK, "Booking Canceled")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> cancelbooking(Guid UserID, Guid TicketID)
+        public async Task<IActionResult> CancelBooking(Guid UserID, Guid TicketID)
         {
             var t = await _context.Tickets.FindAsync(TicketID);
             if (t == null)
