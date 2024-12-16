@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SkyNile.DTOS;
+using SkyNile.DTO;
 
 
 namespace SkyNile.Controllers
@@ -46,7 +46,7 @@ namespace SkyNile.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> add([FromForm] newrole model)
+        public async Task<IActionResult> add([FromForm] AddRoleModel model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
 
@@ -64,7 +64,7 @@ namespace SkyNile.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> deleterole([FromForm] newrole model)
+        public async Task<IActionResult> deleterole([FromForm] AddRoleModel model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
 

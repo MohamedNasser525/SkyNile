@@ -11,14 +11,22 @@ public class FlightUserCriteriaDTO
     public DateTime DepartureTime { get; set; }
 
     [Display(Name = "Departure Country"), Required(ErrorMessage = "Departure Country is required.")]
+    [RegularExpression(@"^[a-zA-Z0-9\s]*$", ErrorMessage = "Only letters, numbers, and spaces are allowed.")]
+    [MaxLength(30, ErrorMessage = "DepartureCountry must be no more 30 characters long")]
     public string DepartureCountry { get; set; } = "";
 
     [Display(Name = "Departure Airport"), Required(ErrorMessage = "Departure Country is required.")]
+    [RegularExpression(@"^[a-zA-Z0-9\s]*$", ErrorMessage = "Only letters, numbers, and spaces are allowed.")]
+    [MaxLength(30, ErrorMessage = "DepartureAirport must be no more 30 characters long")]
     public string DepartureAirport { get; set; } = "";
 
     [Display(Name = "Arrival Country")]
+    [RegularExpression(@"^[a-zA-Z0-9\s]*$", ErrorMessage = "Only letters, numbers, and spaces are allowed.")]
+    [MaxLength(30, ErrorMessage = "ArrivalCountry must be no more 30 characters long")]
     public string? ArrivalCountry { get; set; }
 
     [Display(Name = "Arrival Airport")]
+    [RegularExpression(@"^[a-zA-Z0-9\s]*$", ErrorMessage = "Only letters, numbers, and spaces are allowed.")]
+    [MaxLength(30, ErrorMessage = "ArrivalAirport must be no more 30 characters long")]
     public string? ArrivalAirport { get; set; } 
 }

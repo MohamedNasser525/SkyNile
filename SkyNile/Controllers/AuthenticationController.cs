@@ -138,19 +138,5 @@ namespace SkyNile.Controllers
             return Ok("ResetPassword Succeeded");
 
         }
-
-        [HttpPost("/addRole")]
-        public async Task<IActionResult> AddRoleAsync([FromForm] AddRoleModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _authService.AddRoleAsync(model);
-
-            if (!string.IsNullOrEmpty(result))
-                return BadRequest(result);
-
-            return Ok(model);
-        }
     }
 }
