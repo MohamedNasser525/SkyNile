@@ -7,6 +7,7 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -87,12 +88,25 @@ builder.Services.AddSwaggerGen(options =>
  });
     options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
 });
-builder.Services.AddControllers();
 builder.Services.AddControllers()
    .AddJsonOptions(options =>
    {
        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
    });
+
+builder.Services.AddControllersWithViews().ConfigureApiBehaviorOptions(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+            .Where(e => e.Value.Errors.Count > 0)
+            .SelectMany(x => x.Value.Errors)
+            .Select(x => x.ErrorMessage)
+            .ToArray();
+
+        return new BadRequestObjectResult(errors);
+    };
+});
 
 builder.Services.AddMapster();
 builder.Services.AddAuthentication(options =>
@@ -133,7 +147,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseRateLimiter();
+//app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
