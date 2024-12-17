@@ -35,9 +35,9 @@ builder.Services.AddTransient<IFlightSchedulingService, FlightSchedulingService>
 builder.Services.AddTransient<ISearchService, FlightSearchService>();
 builder.Services.AddRateLimiter(opt =>
 {
-
+    opt.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
     opt.AddPolicy("TokenBucketLimiter", httpContext => RateLimitPartition.GetTokenBucketLimiter(
-        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(), factory: partition => new TokenBucketRateLimiterOptions
+        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(), factory: _ => new TokenBucketRateLimiterOptions
         {
             TokenLimit = 5,
             QueueLimit = 2,
@@ -46,15 +46,6 @@ builder.Services.AddRateLimiter(opt =>
             TokensPerPeriod = 3,
             AutoReplenishment = true,
         }));
-    opt.AddTokenBucketLimiter("TokenBucketLimiter", opt2 =>
-    {
-        opt2.TokenLimit = 5;
-        opt2.QueueLimit = 2;
-        opt2.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt2.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
-        opt2.TokensPerPeriod = 3;
-        opt2.AutoReplenishment = true;
-    }).RejectionStatusCode = 429;
 });
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
