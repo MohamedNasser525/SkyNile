@@ -38,8 +38,12 @@ namespace SkyNile.Controllers
         
 
         [HttpGet("GetUserBooking/{userId:guid}")]
-        public async Task<IActionResult> GetUserBookedTickets([FromRoute] Guid userId, [FromBody] TicketStatus status) =>
-            Ok(await _unitOfWork.Tickets.FindAsync(t => t.UserId == userId && t.TicketStatus == status));
+        public async Task<IActionResult> GetUserBookedTickets([FromRoute] Guid userId, [FromQuery] TicketStatus status) {
+            var allUserTickets = await _unitOfWork.Tickets.FindAsync(t => t.UserId == userId && t.TicketStatus == status);
+            return Ok(allUserTickets.Select(t => new { ticketId = t.Id, flightId = t.FlightId, ticketCount = t.TicketCount,
+             totalPrice = t.TotalPrice, departureCountry = t.Flight.DepartureCountry, arrivalCountry = t.Flight.ArrivalCountry, 
+             departureTime = t.Flight.DepartureTime, arrivalTime = t.Flight.ArrivalTime, ticketStatus = t.TicketStatus}));
+        }
             
         [HttpPost("booking")]
         [SwaggerOperation(Summary = "For passenger to book ticket")]
@@ -49,25 +53,18 @@ namespace SkyNile.Controllers
         {
             var user = await _userManager.FindByIdAsync(UserID.ToString());
             if (user == null)
-            {
                 return BadRequest("user id invaild");
-            }
-
+            
             var flight = await _unitOfWork.Flights.GetByIdAsync(FlightID);
             if (flight == null)
-            {
                 return BadRequest("flight id invaild");
-            }
-            if (flight.Seatsnum <= 0)
-            {
+            
+            if (flight.Seatsnum == 0)
                 return BadRequest("no ticket available");
-            }
-            //Dynamic Price Change
-            if (flight.UpdatePrisce == false && flight.DepartureTime <= DateTime.Now.AddHours(24))
-            {
-                flight.Price *= 1.3;
-                flight.UpdatePrisce = true;
-            }
+            
+            else if (flight.Seatsnum == 1)
+                flight.FlightStatus = FlightStatus.SoldOut;
+            
             Ticket ticket = new Ticket()
             {
                 Id = Guid.NewGuid(),

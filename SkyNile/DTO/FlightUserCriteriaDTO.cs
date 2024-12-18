@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using BusinessLogic.CustomAttributes;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace SkyNile.DTO;
 
 public class FlightUserCriteriaDTO
@@ -28,5 +29,7 @@ public class FlightUserCriteriaDTO
     [Display(Name = "Arrival Airport")]
     [RegularExpression(@"^[a-zA-Z0-9\s]*$", ErrorMessage = "Only letters, numbers, and spaces are allowed.")]
     [MaxLength(30, ErrorMessage = "ArrivalAirport must be no more 30 characters long")]
-    public string? ArrivalAirport { get; set; } 
+    public string? ArrivalAirport { get; set; }
+    [BindNever]
+    public FlightStatus FlightStatus { get; } =  FlightStatus.Scheduled;
 }

@@ -12,13 +12,13 @@ public class FlightSchedulingService : IFlightSchedulingService
     {
         _context = context;
     }
-    public async Task<IEnumerable<DateTime>> GetAvailableFlightTimeScheduleAsync(DateTime targetDate)
+    public async Task<IEnumerable<DateTime>> GetAvailableFlightTimeScheduleAsync(string airport, DateTime targetDate)
     {
         TimeSpan oneDay = new(24, 0, 0);
-        TimeSpan allowedGapBetweenFlights = new(0, 30, 0);
+        TimeSpan allowedGapBetweenFlights = new(0, 5, 0);
         List<DateTime> bestDateScheduling = new();
 
-        bool isTargetOccupied = await _context.Flights.AnyAsync(f => f.DepartureTime >= targetDate.Subtract(allowedGapBetweenFlights) && f.DepartureTime <= targetDate.Add(allowedGapBetweenFlights));
+        bool isTargetOccupied = await _context.Flights.AnyAsync(f => f.DepartureAirport == airport && f.DepartureTime >= targetDate.Subtract(allowedGapBetweenFlights) && f.DepartureTime <= targetDate.Add(allowedGapBetweenFlights));
         if (!isTargetOccupied)
         {
             bestDateScheduling.Add(targetDate);
@@ -40,10 +40,7 @@ public class FlightSchedulingService : IFlightSchedulingService
             }
             previousHead = flight;
         }
-        if (onlyOneLoopIteration)
-        {
-            bestDateScheduling.Add(previousHead.DepartureTime.Add(allowedGapBetweenFlights));
-        }
+        bestDateScheduling.Add(previousHead!.DepartureTime.Add(allowedGapBetweenFlights));
         return bestDateScheduling;
     }
     public async Task DeleteFlightTimeScheduleAsync(Flight f)

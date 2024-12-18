@@ -6,7 +6,8 @@ public enum FlightStatus
     Scheduled,
     Delayed,
     Completed,
-    Cancelled
+    Cancelled,
+    SoldOut
 }
 
 namespace BusinessLogic.Models

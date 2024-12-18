@@ -6,7 +6,7 @@ namespace SkyNile.Services;
 public interface IFlightSchedulingService
 {
     
-    public Task<IEnumerable<DateTime>> GetAvailableFlightTimeScheduleAsync(DateTime targetDate);
+    public Task<IEnumerable<DateTime>> GetAvailableFlightTimeScheduleAsync(string airport, DateTime targetDate);
     public Task DeleteFlightTimeScheduleAsync(Flight f);
 
 }

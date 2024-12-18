@@ -41,12 +41,15 @@ namespace SkyNile.Controllers
         }
 
         [HttpGet("GetFlights/{userId:guid}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(Summary = "Search for flight based on user flight criteria and user sort preferences")]
+        [SwaggerResponse(StatusCodes.Status200OK)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "There is no flights")]
         [Authorize]
         public async Task<ActionResult> GetAvailableFlightsAsync([FromRoute] Guid userId, [FromQuery] FlightUserCriteriaDTO flightCriteriaDTO,
         int pageNumber, int pageSize)
         {
+            // If Arrival Country & Airport fields are not specified initialize them by a global identifier "WORLD"
             flightCriteriaDTO.ArrivalCountry = flightCriteriaDTO.ArrivalCountry ?? "WORLD";
             flightCriteriaDTO.ArrivalAirport = flightCriteriaDTO.ArrivalAirport ?? "WORLD";
             string cacheKey = $"FlightSearch_{flightCriteriaDTO.DepartureCountry}_{flightCriteriaDTO.DepartureAirport}" +
@@ -60,12 +63,13 @@ namespace SkyNile.Controllers
                 flightCriteriaDTO.ArrivalCountry = null; flightCriteriaDTO.ArrivalAirport = null;
                 var expression = _flightSearchService.BuildSearchExpression<Flight>(flightCriteriaDTO);
                 beforeSortList = await _unitOfWork.Flights.FindAsync(expression);
-                beforeSortList = beforeSortList.Where(f => f.FlightStatus == FlightStatus.Scheduled); ;
+                if (beforeSortList is null || beforeSortList.Count() == 0) return NotFound();
                 _cacheService.SetData<IEnumerable<Flight>>(cacheKey, beforeSortList);
             }
+            // For each flight check for dynamic price change before viewing to the Customer
             foreach (var flight in beforeSortList)
             {
-                //Dynamic Price Change
+                
                 if (flight.UpdatePrisce == false && flight.DepartureTime <= DateTime.Now.AddHours(24))
                 {
                     flight.Price *= 1.3;
@@ -74,6 +78,7 @@ namespace SkyNile.Controllers
             }
             await _unitOfWork.CompleteAsync();
             var flightDTO = beforeSortList.Adapt<List<FlightSortDTO>>();
+            // Sort flights by user preference range between Speed & price
             FlightPreference preference = (await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId.ToString()))!.FlightPreference;
             var sortedDTO = _flightSearchService.SortFlightsByUserPreference(flightDTO, preference);
             int totalItems = sortedDTO.Count();
@@ -82,6 +87,7 @@ namespace SkyNile.Controllers
         }
 
         [HttpGet("{id:guid}", Name = "GetFlightById")]
+        [SwaggerOperation(Summary = "Get Specific flight by its id")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -98,7 +104,10 @@ namespace SkyNile.Controllers
                 targetFlight.UpdatePrisce = true;
             }
             await _unitOfWork.CompleteAsync();
-            return Ok(targetFlight);
+            
+            return Ok(new {flightId = targetFlight.Id, departureCountry = targetFlight.DepartureCountry, 
+            arrivalCountry = targetFlight.ArrivalCountry, departureTime = targetFlight.DepartureTime, 
+            arrivalTime = targetFlight.ArrivalTime});
         }
 
         [HttpGet("GetAvailableFlightSchedule/{targetDateTime:DateTime}")]
@@ -106,8 +115,8 @@ namespace SkyNile.Controllers
         [SwaggerResponse(StatusCodes.Status401Unauthorized, "You are not allowed to perform this action.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAvailableFlightSchedule([FromRoute] DateTime targetDateTime) =>
-         Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(targetDateTime));
+        public async Task<IActionResult> GetAvailableFlightSchedule([FromQuery] string airport, [FromRoute] DateTime targetDateTime) =>
+         Ok(await _flightScheduler.GetAvailableFlightTimeScheduleAsync(airport,targetDateTime));
 
 
         [HttpPost(Name = "InsertFlight")]
@@ -128,6 +137,7 @@ namespace SkyNile.Controllers
             await _unitOfWork.CompleteAsync();
             _cacheService.RemoveData(cacheKey);
             // Scheduling a delayed job with Hangfire
+            
             var myData = flight.ArrivalTime - DateTime.Now.AddHours(1);
             var jobId = BackgroundJob.Schedule(
                 () => _flightScheduler.DeleteFlightTimeScheduleAsync(flight), myData);

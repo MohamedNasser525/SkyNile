@@ -67,7 +67,7 @@ namespace SkyNile.Controllers
             await _mailingService.SendMailAsync(model.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.");
 
-            return Ok("relogin after chack inbox to confirm mail :)");
+            return Ok("Confirm your Email address then Login");
 
         }
 
