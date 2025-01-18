@@ -14,7 +14,7 @@
 7. [Installation Guide](#installation-guide)
 8. [API Endpoints](#api-endpoints)
 9. [Future Enhancements](#future-enhancements)
-10. [Contributors](#Contributors)
+10. [Contributors](#contributors)
 11. [Contact](#contact)
 
 ---
@@ -36,13 +36,13 @@ SkyNile Flight Reservation System follows agile development principles to ensure
 ### Trello Board Structure
 
 Our Trello board is organized into the following columns:
-1. **Backlog**: Contains all the tasks and features to be developed.
-2. **To Do**: Lists tasks selected for the current sprint.
-3. **In Progress**: Tracks tasks that are actively being worked on.
-4. **Code Review**: Tasks under review by team members.
-5. **Testing**: Tracks features undergoing functional and integration testing.
-6. **Done**: Completed tasks.
+1. **To Do**: Tasks prioritized for the current sprint, awaiting assignment or action.
+2. **In Progress**: Tasks currently under development or being actively worked on.
+3. **Done**: Completed tasks that have passed all required reviews and testing.
+4. **Next Spring Discussion**: A dedicated space for scheduling discussions, setting meeting agendas, and outlining tasks for the upcoming sprint.
+5. **Future Work**: A repository of long-term tasks, ideas, and potential extensions for incorporating advanced technologies or new features.
 
+ 
 ### Key Features of Our Trello Workflow
 - **Sprint Planning**: Tasks are assigned to sprints based on priority and team capacity.
 - **Labels and Tags**: Used for categorizing tasks (e.g., `Feature`, `Bug`, `Enhancement`).
