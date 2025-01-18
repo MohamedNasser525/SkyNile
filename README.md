@@ -6,15 +6,16 @@
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
-2. [Features](#features)
-3. [Project Architecture](#project-architecture)
-4. [Assumptions](#assumptions)
-5. [Technologies and Tools Used](#technologies-and-tools-used)
-6. [Installation Guide](#installation-guide)
-7. [API Endpoints](#api-endpoints)
-8. [Future Enhancements](#future-enhancements)
-9. [Contributors](#Contributors)
-10. [Contact](#contact)
+2. [Agile Methodology](#agile-methodology)
+3. [Features](#features)
+4. [Project Architecture](#project-architecture)
+5. [Assumptions](#assumptions)
+6. [Technologies and Tools Used](#technologies-and-tools-used)
+7. [Installation Guide](#installation-guide)
+8. [API Endpoints](#api-endpoints)
+9. [Future Enhancements](#future-enhancements)
+10. [Contributors](#Contributors)
+11. [Contact](#contact)
 
 ---
 
@@ -26,6 +27,32 @@ SkyNile Flight Reservation System is a comprehensive **RESTful Web API** designe
 - **Crew Member**: Views and manages their upcoming flight schedules.
 
 The project follows industry-standard practices for scalability, maintainability, and performance, leveraging cutting-edge technologies like .NET Core 8 and Azure.
+
+---
+## Agile Methodology
+
+SkyNile Flight Reservation System follows agile development principles to ensure iterative progress, collaboration, and adaptability. The team uses **Trello** as a project management tool to track tasks and facilitate effective communication.
+
+### Trello Board Structure
+
+Our Trello board is organized into the following columns:
+1. **Backlog**: Contains all the tasks and features to be developed.
+2. **To Do**: Lists tasks selected for the current sprint.
+3. **In Progress**: Tracks tasks that are actively being worked on.
+4. **Code Review**: Tasks under review by team members.
+5. **Testing**: Tracks features undergoing functional and integration testing.
+6. **Done**: Completed tasks.
+
+### Key Features of Our Trello Workflow
+- **Sprint Planning**: Tasks are assigned to sprints based on priority and team capacity.
+- **Labels and Tags**: Used for categorizing tasks (e.g., `Feature`, `Bug`, `Enhancement`).
+- **Checklists**: Provide detailed subtasks within each card for precise tracking.
+- **Automation**: Leveraging Trello's automation tools to send notifications and move tasks between columns.
+
+### Trello Board Link
+[SkyNile Trello Board](https://trello.com/b/YIOREsQw/my-trello-board) 
+
+By adhering to this methodology, the team ensures transparency, accountability, and continuous delivery of value to the SkyNile Flight Reservation System.
 
 ---
 
@@ -140,7 +167,7 @@ The application follows a **3-tier architecture**:
 ---
 ## Contact
 Feel free to reach out for questions, collaborations Or business Inquiries:
-- **Mohamed Nasser Email**: yourname@example.com
+- **Mohamed Nasser Email**: mo.nasser525@gmail.com
 - **Mohamed Walid Emails**: Moh.Walid2002@gmail.com
 - **Mohamed Nasser Linkedin**: [Profile](https://www.linkedin.com/in/mohamednasser101/)
 - **Mohamed Walid Linkedin**: [Profile](https://www.linkedin.com/in/mohamed-walid-317b281b9/)
